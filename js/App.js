@@ -6,11 +6,12 @@ import PokemonCard from "../components/PokemonCard";
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
-  const url = "https://pokeapi.co/api/v2/pokemon?limit=1008&offset=0";
+  const [limit, setLimit] = useState(15);
+  const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
 
   useEffect(() => {
     fetchPokemonData();
-  }, []);
+  }, [limit]);
 
   const fetchPokemonData = async () => {
     try {
@@ -19,6 +20,10 @@ const App = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const showMore = () => {
+    setLimit(limit + 15);
   };
 
   return (
@@ -30,6 +35,16 @@ const App = () => {
         ) : (
           <h1>포켓몬이 없습니다.</h1>
         )}
+      </div>
+      <div className="button-wrapper">
+        <button
+          className="show-more-button"
+          onClick={() => {
+            showMore();
+          }}
+        >
+          더보기
+        </button>
       </div>
     </div>
   );

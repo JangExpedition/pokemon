@@ -23,11 +23,6 @@ const PokemonCard = ({ pokemon }) => {
     }
   };
 
-  const imageHandler = (target) => {
-    target.style.display = "inline-block";
-    setLoading(false);
-  };
-
   return (
     <div className="PokemonCard">
       <p>#{String(pokemonData?.id).padStart(3, "0")}</p>
@@ -41,8 +36,8 @@ const PokemonCard = ({ pokemon }) => {
           src={pokemonData?.image}
           alt={pokemonData?.name}
           loading="lazy"
-          onLoad={(e) => {
-            imageHandler(e.target);
+          onLoad={() => {
+            setLoading(false);
           }}
         />
       </div>
