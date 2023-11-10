@@ -15,6 +15,7 @@ const App = () => {
       try {
         const response = await axios(`https://pokeapi.co/api/v2/pokemon/${e.target.value}`);
         const pokemon = response.data;
+        pokemon.url = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
         setPokemons([pokemon]);
       } catch (error) {
         setPokemons([]);

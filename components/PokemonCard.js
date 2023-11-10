@@ -25,7 +25,7 @@ const PokemonCard = ({ pokemon }) => {
 
   return (
     <div className="PokemonCard">
-      <p>#{String(pokemonData?.id).padStart(3, "0")}</p>
+      <p className={`${pokemonData?.type}`}>#{String(pokemonData?.id).padStart(3, "0")}</p>
       <div className="pokemon-image-wrapper">
         {loading && (
           <div className="loading">
