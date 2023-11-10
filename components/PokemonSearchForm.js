@@ -10,6 +10,7 @@ const PokemonSearchForm = ({ searchHandler }) => {
         onChange={(e) => {
           searchHandler(e);
         }}
+        placeholder="포켓몬 이름을 입력해주세요."
       ></input>
       <button type="submit" className="search-button">
         검색

@@ -19,6 +19,12 @@ body {
     justify-content: space-between;
 
     padding: 0.5rem 2rem;
+    .no-pokemon {
+      width: 100%;
+      font-size: 3rem;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
   }
 }
 
@@ -132,6 +138,7 @@ body {
     border: 1px solid $base-color;
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
+    outline: none;
   }
   .search-button {
     width: 10%;

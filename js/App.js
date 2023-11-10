@@ -11,12 +11,17 @@ const App = () => {
   const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
 
   const searchHandler = async (e) => {
-    try {
-      const response = await axios(`https://pokeapi.co/api/v2/pokemon/${e.target.value}`);
-      const pokemon = response.data;
-      setPokemons([pokemon]);
-    } catch (error) {
-      console.log(error);
+    if (e.target.value.length > 0) {
+      try {
+        const response = await axios(`https://pokeapi.co/api/v2/pokemon/${e.target.value}`);
+        const pokemon = response.data;
+        setPokemons([pokemon]);
+      } catch (error) {
+        setPokemons([]);
+        console.log(error);
+      }
+    } else {
+      fetchPokemonData();
     }
   };
 
@@ -45,7 +50,7 @@ const App = () => {
         {pokemons.length > 0 ? (
           pokemons.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)
         ) : (
-          <h1>포켓몬이 없습니다.</h1>
+          <h1 className="no-pokemon">포켓몬이 없습니다.</h1>
         )}
       </div>
       <div className="button-wrapper">
