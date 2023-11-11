@@ -7,18 +7,19 @@ import Header from "../components/Header";
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
-  const [limit, setLimit] = useState(15);
-  const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
+  const allPokemonUrl = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
 
-  const searchHandler = async (e) => {
-    if (e.target.value.length > 0) {
+  const [displayPokemon, setDisplayPokemon] = useState([]);
+  const [pokemonsNameList, setPokemonsNameList] = useState([]);
+  const [limit, setLimit] = useState(15);
+
+  const searchHandler = async (value) => {
+    if (value.length > 0) {
       try {
-        const response = await axios(`https://pokeapi.co/api/v2/pokemon/${e.target.value}`);
-        const pokemon = response.data;
-        pokemon.url = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
-        setPokemons([pokemon]);
+        setDisplayPokemon(pokemons.filter((pokemon) => pokemon.name.includes(value)));
+        setPokemonsNameList(pokemons.filter((pokemon) => pokemon.name.includes(value)).map((pokemon) => pokemon.name));
       } catch (error) {
-        setPokemons([]);
+        setDisplayPokemon([]);
         console.log(error);
       }
     } else {
@@ -32,8 +33,9 @@ const App = () => {
 
   const fetchPokemonData = async () => {
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(allPokemonUrl);
       setPokemons(response.data.results);
+      setDisplayPokemon(response.data.results.slice(0, limit));
     } catch (error) {
       setPokemons([]);
       console.log(error);
@@ -46,10 +48,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header searchHandler={searchHandler} />
+      <Header searchHandler={searchHandler} pokemonsNameList={pokemonsNameList} />
       <div className="pokemon-container">
-        {pokemons.length > 0 ? (
-          pokemons.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)
+        {displayPokemon.length > 0 ? (
+          displayPokemon.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)
         ) : (
           <h1 className="no-pokemon">포켓몬이 없습니다.</h1>
         )}

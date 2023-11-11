@@ -16,7 +16,7 @@ body {
   .pokemon-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 
     padding: 0.5rem 2rem;
     .no-pokemon {
@@ -43,7 +43,7 @@ body {
 .PokemonCard {
   width: 30%;
   height: 30vw;
-  margin: 0.25rem;
+  margin: 0.5rem;
   border: 1px solid $base-color;
   border-radius: 0.75rem;
 
@@ -112,6 +112,7 @@ body {
   width: 100%;
   height: 60px;
   position: fixed;
+  background-color: #fff;
   top: 0;
   left: 0;
   display: flex;
@@ -125,35 +126,42 @@ body {
   }
 }
 
-.PokemonSearchFrom {
+.PokemonSearchForm {
   width: 50%;
   height: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  .pokemon-search {
-    width: 40%;
+  .search-data-wrapper {
+    width: 50%;
     height: 50%;
-    box-sizing: border-box;
-    padding: 0.25rem 1rem;
-    background-color: $base-color;
-    color: #fff;
-    border: 1px solid $base-color;
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-    outline: none;
-  }
-  .search-button {
-    width: 10%;
-    height: 50%;
-    box-sizing: border-box;
-    background-color: $base-color;
-    color: #fff;
-    border: 1px solid $base-color;
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    cursor: pointer;
+    .pokemon-search {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0.25rem 1rem;
+      background-color: $base-color;
+      color: #fff;
+      border: 1px solid $base-color;
+      border-radius: 0.5rem;
+      outline: none;
+    }
+    ul {
+      max-height: 15rem;
+      overflow: scroll;
+      border-radius: 0.5rem;
+      li {
+        background-color: $base-color;
+        color: #fff;
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+      }
+      li:hover {
+        background-color: #fff;
+        color: $base-color;
+      }
+    }
   }
 }
 
