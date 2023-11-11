@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import PokemonCard from "../components/PokemonCard";
 import Header from "../components/Header";
+import { useDebounce } from "../hooks/useDebounce";
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -13,23 +14,25 @@ const App = () => {
   const [pokemonsNameList, setPokemonsNameList] = useState([]);
   const [limit, setLimit] = useState(15);
 
-  const searchHandler = async (value) => {
-    if (value.length > 0) {
-      try {
-        setDisplayPokemon(pokemons.filter((pokemon) => pokemon.name.includes(value)));
-        setPokemonsNameList(pokemons.filter((pokemon) => pokemon.name.includes(value)).map((pokemon) => pokemon.name));
-      } catch (error) {
-        setDisplayPokemon([]);
-        console.log(error);
-      }
-    } else {
-      fetchPokemonData();
-    }
-  };
+  const [searchValue, setSearchValue] = useState("");
+  const debounceValue = useDebounce(searchValue, 1000);
 
   useEffect(() => {
     fetchPokemonData();
   }, [limit]);
+
+  useEffect(() => {
+    searchHandler(debounceValue);
+  }, [debounceValue]);
+
+  const searchHandler = (value) => {
+    if (value.length > 0) {
+      setDisplayPokemon(pokemons.filter((pokemon) => pokemon.name.includes(value)));
+      setPokemonsNameList(pokemons.filter((pokemon) => pokemon.name.includes(value)).map((pokemon) => pokemon.name));
+    } else {
+      fetchPokemonData();
+    }
+  };
 
   const fetchPokemonData = async () => {
     try {
@@ -48,7 +51,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header searchHandler={searchHandler} pokemonsNameList={pokemonsNameList} />
+      <Header searchHandler={setSearchValue} pokemonsNameList={pokemonsNameList} />
       <div className="pokemon-container">
         {displayPokemon.length > 0 ? (
           displayPokemon.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)
