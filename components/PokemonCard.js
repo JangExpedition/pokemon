@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const PokemonCard = ({ pokemon }) => {
   const [pokemonData, setPokemonData] = useState({});
@@ -24,7 +25,7 @@ const PokemonCard = ({ pokemon }) => {
   };
 
   return (
-    <div className="PokemonCard">
+    <Link to={`/pokemon/${pokemonData?.name}`} className="PokemonCard">
       <p className={`${pokemonData?.type}`}>#{String(pokemonData?.id).padStart(3, "0")}</p>
       <div className="pokemon-image-wrapper">
         {loading && (
@@ -44,7 +45,7 @@ const PokemonCard = ({ pokemon }) => {
       <div className={`pokemon-name-wrapper ${pokemonData?.type}`}>
         <span className="pokemon-name">{pokemonData.name?.toUpperCase()}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 

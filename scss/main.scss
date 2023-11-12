@@ -1,17 +1,21 @@
 $base-color: #253238;
 
 body {
+  width: 100%;
+  height: 100%;
+  min-width: 375px;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#app {
+.MainPage {
   width: 80%;
-}
-
-.App {
-  width: 100%;
   padding-top: 60px;
   .pokemon-container {
     display: flex;
@@ -41,7 +45,7 @@ body {
 }
 
 .PokemonCard {
-  width: 30%;
+  width: 25%;
   height: 30vw;
   margin: 0.5rem;
   border: 1px solid $base-color;
@@ -54,6 +58,8 @@ body {
 
   background-color: #253238;
   color: #fff;
+
+  text-decoration: none;
 
   p {
     width: 100%;
@@ -165,6 +171,197 @@ body {
   }
 }
 
+.detail-data-loading {
+  background-color: $base-color;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    color: #fff;
+    font-size: 3rem;
+  }
+}
+
+.DetailPage {
+  background-color: $base-color;
+  width: 100%;
+  min-height: 120vh;
+  .type-background {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    .back {
+      color: #fff;
+      text-decoration: none;
+      height: 1.2rem;
+      cursor: pointer;
+    }
+    span {
+      color: #fff;
+      height: 1.2rem;
+    }
+  }
+  .main-image {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    cursor: pointer;
+  }
+  .info-container {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+    section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 1rem;
+      h4 {
+        background-color: $base-color !important;
+        font-weight: bold;
+        text-align: center;
+        margin: 1rem;
+      }
+    }
+    .type-section {
+      gap: 2rem;
+      flex-direction: row;
+    }
+    .data-section {
+      .one-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        .one-data {
+          display: flex;
+          flex-direction: column;
+          color: #fff !important;
+          width: 100px;
+          text-align: center;
+          gap: 0.5rem;
+          .data-title {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .stat-section {
+      table {
+        width: 50%;
+      }
+    }
+    .description-section {
+    }
+  }
+  .previous {
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
+    transform: translateY(50%);
+    font-weight: bold;
+    font-size: 3rem;
+    color: #fff;
+    text-decoration: none;
+  }
+  .next {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(50%);
+    font-weight: bold;
+    font-size: 3rem;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.BaseStat {
+  color: #fff;
+  .name,
+  .gauge,
+  .max {
+    padding: 0 0.5rem;
+  }
+  .gauge {
+    .full-gauge {
+      width: 10rem;
+      height: 0.5rem;
+      background-color: gray;
+      border-radius: 0.5rem;
+      .stat-gauge {
+        height: 0.5rem;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+  .value {
+    padding: 0 1rem;
+  }
+}
+
+.DamageModal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .modal {
+    background-color: #fff;
+    width: 50%;
+    height: 50%;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem;
+    .modal-header {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      .close-button {
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+    .relation {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: lightgray;
+      }
+    }
+  }
+}
+
+.Type {
+  color: #fff !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
 .primary {
   background-color: #ffcb05;
   color: #ffcb05;
@@ -273,4 +470,14 @@ body {
 .none {
   background-color: #bfbfbf;
   color: #bfbfbf;
+}
+
+@media screen and (max-width: 50rem) {
+  body {
+    font-size: 12px;
+  }
+
+  .MainPage {
+    width: 100%;
+  }
 }
