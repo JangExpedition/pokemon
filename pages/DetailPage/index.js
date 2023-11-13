@@ -45,7 +45,6 @@ const DetailPage = () => {
           damageRelations,
         };
 
-        console.log(formatData);
         setPokemonData(formatData);
         setIsLoading(false);
       }
