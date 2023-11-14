@@ -4,12 +4,12 @@ import MainPage from "../pages/MainPage";
 import DetailPage from "../pages/DetailPage";
 import { createRoot } from "react-dom/client";
 import LoginPage from "../pages/LoginPage";
-import _Header from "../components/_Header";
+import Header from "../components/Header";
 
 const Layout = () => {
   return (
     <>
-      <_Header />
+      <Header />
       <Outlet />
     </>
   );
@@ -21,7 +21,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
-          <Route path="login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/pokemon/:id" element={<DetailPage />} />
         </Route>
       </Routes>

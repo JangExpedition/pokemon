@@ -130,8 +130,47 @@ body {
     height: 100%;
     cursor: pointer;
   }
-  .login-button {
-    text-decoration: none;
+  .profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .profile-image {
+      width: 48px;
+      height: 48px;
+      border: 1px solid $base-color;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      box-sizing: border-box;
+      cursor: pointer;
+      img {
+        width: 48px;
+        height: 48px;
+      }
+    }
+    &:hover .sign-out {
+      opacity: 1;
+      visibility: visible;
+      transition-duration: all 1s;
+    }
+    .sign-out {
+      position: absolute;
+      top: 55px;
+      cursor: pointer;
+      box-sizing: border-box;
+      background-color: $base-color;
+      color: #fff;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      visibility: hidden;
+      opacity: 0;
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 }
 

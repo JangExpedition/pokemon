@@ -2,7 +2,6 @@ import axios from "axios";
 import "../../scss/main.scss";
 import React, { useEffect, useState } from "react";
 import PokemonCard from "../../components/PokemonCard";
-import Header from "../../components/Header";
 import { useDebounce } from "../../hooks/useDebounce";
 
 const MainPage = () => {
@@ -50,7 +49,6 @@ const MainPage = () => {
 
   return (
     <div className="MainPage">
-      <Header searchHandler={setSearchValue} pokemonsNameList={pokemonsNameList} />
       <div className="pokemon-container">
         {displayPokemon.length > 0 ? (
           displayPokemon.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)
