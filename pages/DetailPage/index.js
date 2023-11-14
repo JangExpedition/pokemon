@@ -43,6 +43,8 @@ const DetailPage = () => {
           next: nextAndPreviousPokemon.next,
           previous: nextAndPreviousPokemon.previous,
           damageRelations,
+          sprites: formatPokemonSprites(sprites),
+          description: await getPokemonDescription(id),
         };
 
         setPokemonData(formatData);
@@ -51,6 +53,34 @@ const DetailPage = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const getPokemonDescription = async (id) => {
+    const url = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
+    const response = await axios.get(url);
+    const description = filterAndFormatDescription(response.data.flavor_text_entries);
+
+    return description[Math.floor(Math.random() * description.length)];
+  };
+
+  const filterAndFormatDescription = (flavorText) => {
+    const koreanDescription = flavorText
+      ?.filter((text) => text.language.name === "ko")
+      .map((text) => text.flavor_text.replace(/\r|\n|\f/g, " "));
+
+    return koreanDescription;
+  };
+
+  const formatPokemonSprites = (sprites) => {
+    const newSprites = { ...sprites };
+
+    Object.keys(sprites).forEach((key) => {
+      if (typeof newSprites[key] !== "string") {
+        delete newSprites[key];
+      }
+    });
+
+    return Object.values(newSprites);
   };
 
   const formatAbilities = (abilities) => {
@@ -138,6 +168,14 @@ const DetailPage = () => {
         </section>
         <section className="description-section">
           <h4 className={pokemonData?.types[0]}>설명</h4>
+          <div className="description">{pokemonData?.description}</div>
+        </section>
+        <section className="sprites-section">
+          <div className="sprites">
+            {pokemonData?.sprites.map((sprite) => (
+              <img src={sprite} key={sprite} alt="sprite" />
+            ))}
+          </div>
         </section>
       </div>
       {pokemonData?.previous && (
