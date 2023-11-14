@@ -130,6 +130,9 @@ body {
     height: 100%;
     cursor: pointer;
   }
+  .login-button {
+    text-decoration: none;
+  }
 }
 
 .PokemonSearchForm {
@@ -372,6 +375,51 @@ body {
         justify-content: center;
         padding: 1rem 0;
       }
+    }
+  }
+}
+
+.LoginPage {
+  background-color: rgb(249 250 251);
+  padding-top: 60px;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .welcome-section {
+    background-color: rgb(243 244 246);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    box-sizing: border-box;
+    padding: 5rem;
+    border-radius: 3rem;
+
+    width: 80%;
+    height: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .welcome-text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      h1 {
+        font-weight: bold;
+        font-size: 3rem;
+        padding-bottom: 1.5rem;
+        text-align: start;
+      }
+      p {
+        width: 100%;
+        color: #003a70;
+        padding-bottom: 1rem;
+        text-align: start;
+      }
+    }
+    img {
+      height: 100%;
     }
   }
 }

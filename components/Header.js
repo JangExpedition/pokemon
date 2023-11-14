@@ -1,5 +1,6 @@
 import React from "react";
 import PokemonSearchForm from "./PokemonSearchForm";
+import { Link } from "react-router-dom";
 
 const Header = ({ searchHandler, pokemonsNameList }) => {
   return (
@@ -12,7 +13,9 @@ const Header = ({ searchHandler, pokemonsNameList }) => {
         }}
       ></img>
       <PokemonSearchForm searchHandler={searchHandler} pokemonsNameList={pokemonsNameList} />
-      <button className="button">로그인</button>
+      <Link to={"login"} className="button login-button">
+        로그인
+      </Link>
     </header>
   );
 };
