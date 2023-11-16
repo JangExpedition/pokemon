@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 const Header = () => {
-  const [userData, setUserData] = useState({});
+  const initialUserData = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")) : {};
+  const [userData, setUserData] = useState(initialUserData);
   const auth = getAuth(firebase);
   const provider = new GoogleAuthProvider();
   const { pathname } = useLocation();
@@ -13,8 +14,7 @@ const Header = () => {
   const handleAuth = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result);
-        setUserData(result.user);
+        localStorage.setItem("userData", JSON.stringify(result.user));
       })
       .catch((error) => {
         console.log(error);
@@ -38,7 +38,7 @@ const Header = () => {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        setUserData({});
+        localStorage.removeItem("userData");
       })
       .catch((error) => {
         console.log(error);

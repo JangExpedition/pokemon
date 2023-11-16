@@ -118,6 +118,7 @@ body {
   width: 100%;
   height: 60px;
   position: fixed;
+  z-index: 10;
   background-color: #fff;
   top: 0;
   left: 0;
@@ -175,8 +176,12 @@ body {
 }
 
 .PokemonSearchForm {
-  width: 50%;
-  height: 100%;
+  width: 100vw;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
 
   display: flex;
   justify-content: center;
@@ -196,6 +201,7 @@ body {
       outline: none;
     }
     ul {
+      position: absolute;
       max-height: 15rem;
       overflow: scroll;
       border-radius: 0.5rem;
@@ -251,8 +257,10 @@ body {
   }
   .main-image {
     position: absolute;
-    top: 25%;
+    top: 30%;
     left: 50%;
+    width: 25rem;
+    height: 25rem;
     transform: translate(-50%, -50%);
     object-fit: contain;
     cursor: pointer;
