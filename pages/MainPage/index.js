@@ -2,7 +2,6 @@ import axios from "axios";
 import "../../scss/main.scss";
 import React, { useEffect, useState } from "react";
 import PokemonCard from "../../components/PokemonCard";
-import { useDebounce } from "../../hooks/useDebounce";
 import PokemonSearchForm from "../../components/PokemonSearchForm";
 
 const MainPage = () => {
@@ -14,20 +13,30 @@ const MainPage = () => {
   const [totalLength, setTotalLength] = useState(0);
   const [limit, setLimit] = useState(15);
 
-  const [searchValue, setSearchValue] = useState("");
-  const debounceValue = useDebounce(searchValue, 1000);
   const [searchData, setSearchData] = useState([]);
 
   useEffect(() => {
-    setSearchData(pokemons.filter((pokemon) => pokemon.name.includes(debounceValue)));
-    searchHandler(debounceValue);
-  }, [debounceValue]);
+    if (searchData.length) {
+      setDisplayPokemon(searchData.slice(0, limit));
+      setTotalLength(searchData.length);
+    } else {
+      setDisplayPokemon(pokemons.slice(0, limit));
+      setTotalLength(pokemons.length);
+    }
+  }, [limit]);
 
-  const searchHandler = (value) => {
-    if (value.length > 0) {
+  useEffect(() => {
+    if (searchData.length > 0) {
       setTotalLength(searchData.length);
       setDisplayPokemon(searchData.slice(0, limit));
       setPokemonsNameList(searchData.map((pokemon) => pokemon.name));
+    }
+  }, [searchData]);
+
+  const searchHandler = (value) => {
+    if (value.length > 0) {
+      console.log(value);
+      setSearchData(pokemons.filter((pokemon) => pokemon.name.includes(value)));
     } else {
       fetchPokemonData();
     }
@@ -40,20 +49,21 @@ const MainPage = () => {
       setPokemons(results);
       setTotalLength(results.length);
       setDisplayPokemon(results.slice(0, limit));
+      setSearchData([]);
     } catch (error) {
       setPokemons([]);
+      setTotalLength(0);
       console.log(error);
     }
   };
 
   const showMore = () => {
     setLimit(limit + 15);
-    setDisplayPokemon(searchData.slice(0, limit));
   };
 
   return (
     <div className="MainPage">
-      <PokemonSearchForm searchHandler={searchHandler} pokemonsNameList={pokemonsNameList} />
+      <PokemonSearchForm searchHandler={searchHandler} pokemonsNameList={pokemonsNameList} setLimit={setLimit} />
       <div className="pokemon-container">
         {displayPokemon.length > 0 ? (
           displayPokemon.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)

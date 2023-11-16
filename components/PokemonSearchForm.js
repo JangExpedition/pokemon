@@ -1,8 +1,17 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDebounce } from "../hooks/useDebounce";
 
-const PokemonSearchForm = ({ searchHandler, pokemonsNameList }) => {
+const PokemonSearchForm = ({ searchHandler, pokemonsNameList, setLimit }) => {
+  const [searchValue, setSearchValue] = useState("");
+  const debounceValue = useDebounce(searchValue, 500);
+
   const searchList = useRef();
   const searchData = useRef();
+
+  useEffect(() => {
+    setLimit(15);
+    searchHandler(debounceValue);
+  }, [debounceValue]);
 
   const searchListDisplayHandler = (bool) => {
     if (bool) {
@@ -19,7 +28,7 @@ const PokemonSearchForm = ({ searchHandler, pokemonsNameList }) => {
           type="text"
           className="pokemon-search"
           onChange={(e) => {
-            searchHandler(e.target.value);
+            setSearchValue(e.target.value);
             if (e.target.value) {
               searchListDisplayHandler(true);
             } else {
@@ -38,7 +47,7 @@ const PokemonSearchForm = ({ searchHandler, pokemonsNameList }) => {
                   searchListDisplayHandler(false);
                   const text = e.target.innerText;
                   searchData.current.value = text;
-                  searchHandler(text);
+                  setSearchValue(text);
                 }}
               >
                 {name}

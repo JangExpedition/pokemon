@@ -176,11 +176,12 @@ body {
 }
 
 .PokemonSearchForm {
-  width: 100vw;
+  width: 50vw;
   height: 60px;
   position: fixed;
+  transform: translateX(-25vw);
   top: 0;
-  left: 0;
+  left: 50%;
   z-index: 15;
 
   display: flex;
