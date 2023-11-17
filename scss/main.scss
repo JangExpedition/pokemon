@@ -617,4 +617,13 @@ body {
     width: 15rem !important;
     height: 15rem !important;
   }
+
+  .search-data-wrapper {
+    width: 60% !important;
+    .pokemon-search {
+      font-size: 0.5rem;
+      padding: 0.1rem 0.2rem !important;
+      text-align: center;
+    }
+  }
 }
