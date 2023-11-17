@@ -48,6 +48,7 @@ body {
   width: 25%;
   height: 30vw;
   margin: 0.5rem;
+  border: none;
   border: 1px solid $base-color;
   border-radius: 0.75rem;
 
@@ -235,6 +236,7 @@ body {
 
 .DetailPage {
   background-color: $base-color;
+  padding-top: 60px;
   width: 100%;
   min-height: 100vh;
   .type-background {
@@ -327,6 +329,9 @@ body {
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        img {
+          width: 25%;
+        }
       }
     }
   }
@@ -599,5 +604,14 @@ body {
 
   .login-image {
     display: none;
+  }
+
+  .pokemon-name {
+    font-size: 0.5rem;
+  }
+
+  .main-image {
+    width: 15rem !important;
+    height: 15rem !important;
   }
 }
