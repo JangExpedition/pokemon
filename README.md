@@ -1,4 +1,4 @@
-# 포켓몬 도감****(feat. React, SCSS, Webpack)****
+# 포켓몬 도감(feat. React, SCSS, Webpack)
 
 # 목차
 
@@ -30,7 +30,7 @@ Git : https://github.com/Jangcccci/pokemon
 
 기존에 듣고 있는 강의에서 React, Vite, TailWind를 이용한 ‘포켓몬 도감 만들기’라는 파트가 있었습니다. 저는 SCSS와 Webpack 사용법을 익히고 싶어서 설정을 달리하였습니다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/6e4cb376-dff7-4244-95cc-3a31f2588d73/Untitled.png)
+<img width="740" alt="1" src="https://github.com/Jangcccci/pokemon/assets/114918904/e15c6170-e12e-4725-8cb5-aa80c36c2983">
 
 프로젝트를 진행하면서 Webpack 설정과 React, SCSS 사용법에 익숙해질 수 있으리라 생각했습니다.
 
@@ -65,18 +65,18 @@ Git : https://github.com/Jangcccci/pokemon
 
 ### 구글 로그인
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/0544408d-c8b0-4c0b-88cd-4b10de95cf99/Untitled.gif)
+![2](https://github.com/Jangcccci/pokemon/assets/114918904/dd4a5fbf-d6b5-4fb9-aba3-04a4f5561551)
 
 - Firebase Authentication 을 이용한 구글 로그인을 구현했습니다.
 - 로그인이 완료되면 헤더 창에 로그인한 이용자의 이미지가 나옵니다.
 
 ### 메인 페이지
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/6e5fe8c9-b86c-4493-9d28-a98c436b1970/Untitled.gif)
+![3](https://github.com/Jangcccci/pokemon/assets/114918904/c24d9530-7cf7-467c-be4b-cec7321eb146)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/6ccc9076-640d-40f9-ae87-e802a16494a5/Untitled.gif)
+![4](https://github.com/Jangcccci/pokemon/assets/114918904/af419b90-f734-40d5-994a-43ebeaa71620)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/d4b9ed00-1c35-45c7-8472-0a87bd24e9bf/Untitled.gif)
+![5](https://github.com/Jangcccci/pokemon/assets/114918904/8d66bea9-b608-4fdf-ba38-6b55b585dced)
 
 - 한 번에 15개의 포켓몬 카드가 나열됩니다.
 - 더보기 버튼 클릭 시 추가로 15개의 포켓몬 카드가 나열됩니다.
@@ -90,9 +90,9 @@ Git : https://github.com/Jangcccci/pokemon
 
 ### 상세 페이지
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/6d020730-b86d-46db-a273-85c11fb2d58f/Untitled.gif)
+![6](https://github.com/Jangcccci/pokemon/assets/114918904/cf3ebcb7-0bbe-4435-9a18-21464739e9a4)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/876f0c1e-b763-446b-8ad8-fbdcc573a58b/Untitled.gif)
+![7](https://github.com/Jangcccci/pokemon/assets/114918904/6053d49f-56e0-41c8-815f-5cbcc7ea56f0)
 
 - 상세 페이지에서는 포켓몬의 속성, 키, 몸무게, 능력치 등을 알 수 있습니다.
 - 이미지 클릭 시 해당 포켓몬의 속성에 대한 상세 정보를 확인할 수 있습니다.
@@ -100,9 +100,10 @@ Git : https://github.com/Jangcccci/pokemon
 
 ### 로그아웃
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/e65b954b-5a25-45a3-91ec-9bc7bbfa7ff2/Untitled.gif)
+![8](https://github.com/Jangcccci/pokemon/assets/114918904/c13c0328-2a65-4df0-b08c-326c6ad9a20f)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/b0163ccd-ca58-4317-84cb-12867476024f/Untitled.gif)
+![9](https://github.com/Jangcccci/pokemon/assets/114918904/ecbf206e-523b-4585-adf4-d26c81b2f414)
+
 
 - 이용자의 이미지에 마우스를 올리면 로그아웃 버튼이 나옵니다.
 - 로그아웃을 클릭하면 로그인 창으로 넘어갑니다.
@@ -112,7 +113,7 @@ Git : https://github.com/Jangcccci/pokemon
 
 ---
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/9aface1f-bd8c-459b-add4-247e292baa13/1eab94c7-ef80-496f-b082-e4ef7172fe2d/Untitled.png)
+<img width="213" alt="10" src="https://github.com/Jangcccci/pokemon/assets/114918904/a289dd0d-91e6-4376-822e-1b4a637d6fee">
 
 React의 컴포넌트가 들어가는 components, 각 페이지를 구성하는 pages, 커스텀한 Hook 들이 들어가는 hooks, 이미지 파일은 static 폴더 하위의 images에 넣었습니다.
 
