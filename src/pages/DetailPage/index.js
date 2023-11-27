@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
 import BaseStat from "../../components/BaseStat";
 import DamageModal from "../../components/DamageModal";
 import Type from "../../components/Type";
@@ -84,7 +85,9 @@ const DetailPage = () => {
   };
 
   const formatAbilities = (abilities) => {
-    return abilities.filter((ability, index) => index <= 1).map((obj) => obj.ability.name.replaceAll("-", " "));
+    return abilities
+      .filter((ability, index) => index <= 1)
+      .map((obj) => obj.ability.name.replaceAll("-", " "));
   };
 
   const formatStats = ([statHP, statATK, statDEP, statSTAK, statSDEP, statSPD]) => [
@@ -119,7 +122,12 @@ const DetailPage = () => {
 
   return (
     <div className="DetailPage">
-      {isModalOpen && <DamageModal setIsModalOpen={setIsModalOpen} damageRelations={pokemonData?.damageRelations} />}
+      {isModalOpen && (
+        <DamageModal
+          setIsModalOpen={setIsModalOpen}
+          damageRelations={pokemonData?.damageRelations}
+        />
+      )}
       <div className={`${pokemonData?.types[0]} type-background`}>
         <Link to={"/"} className="back">{`< ${pokemonData?.name?.toUpperCase()}`}</Link>
         <span>#{String(pokemonData?.id).padStart(3, "0")}</span>
@@ -161,7 +169,12 @@ const DetailPage = () => {
           <table>
             <tbody>
               {pokemonData?.stats.map((stat) => (
-                <BaseStat key={stat.name} valueStat={stat.baseStat} nameStat={stat.name} type={pokemonData?.types[0]} />
+                <BaseStat
+                  key={stat.name}
+                  valueStat={stat.baseStat}
+                  nameStat={stat.name}
+                  type={pokemonData?.types[0]}
+                />
               ))}
             </tbody>
           </table>

@@ -1,10 +1,11 @@
 import React from "react";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import MainPage from "../pages/MainPage";
-import DetailPage from "../pages/DetailPage";
 import { createRoot } from "react-dom/client";
-import LoginPage from "../pages/LoginPage";
-import Header from "../components/Header";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+
+import Header from "./components/Header";
+import MainPage from "./pages/MainPage";
+import DetailPage from "./pages/DetailPage";
+import LoginPage from "./pages/LoginPage";
 
 const Layout = () => {
   return (

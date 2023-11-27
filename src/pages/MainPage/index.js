@@ -1,12 +1,14 @@
-import axios from "axios";
-import "../../scss/main.scss";
+import "../../../scss/main.scss";
 import React, { useEffect, useState } from "react";
+
 import PokemonCard from "../../components/PokemonCard";
 import PokemonSearchForm from "../../components/PokemonSearchForm";
 
+import { Api } from "../../core/api";
+import { POKEMONS_URL } from "../../config";
+
 const MainPage = () => {
   const [pokemons, setPokemons] = useState([]);
-  const allPokemonUrl = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
 
   const [displayPokemon, setDisplayPokemon] = useState([]);
   const [pokemonsNameList, setPokemonsNameList] = useState([]);
@@ -44,8 +46,9 @@ const MainPage = () => {
 
   const fetchPokemonData = async () => {
     try {
-      const response = await axios.get(allPokemonUrl);
-      const results = response.data.results;
+      const api = new Api(POKEMONS_URL);
+      const results = await api.getData();
+
       setPokemons(results);
       setTotalLength(results.length);
       setDisplayPokemon(results.slice(0, limit));
@@ -63,7 +66,11 @@ const MainPage = () => {
 
   return (
     <div className="MainPage">
-      <PokemonSearchForm searchHandler={searchHandler} pokemonsNameList={pokemonsNameList} setLimit={setLimit} />
+      <PokemonSearchForm
+        searchHandler={searchHandler}
+        pokemonsNameList={pokemonsNameList}
+        setLimit={setLimit}
+      />
       <div className="pokemon-container">
         {displayPokemon.length > 0 ? (
           displayPokemon.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)
