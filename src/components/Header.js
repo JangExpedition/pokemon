@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import firebase from "../../firebase";
+import firebase from "../core/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
