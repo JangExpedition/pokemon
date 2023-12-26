@@ -1,19 +1,17 @@
-import "../../../scss/main.scss";
+import "../../styles/global.scss";
 import React, { useEffect, useState } from "react";
 
 import PokemonCard from "../../components/PokemonCard";
 import PokemonSearchForm from "../../components/PokemonSearchForm";
 
-import { Api } from "../../core/api";
-import { POKEMONS_URL } from "../../config";
+import { API, POKEMONS_URL } from "../../api/api";
 
 const MainPage = () => {
-  const [pokemons, setPokemons] = useState([]);
-
-  const [displayPokemon, setDisplayPokemon] = useState([]);
-  const [pokemonsNameList, setPokemonsNameList] = useState([]);
-  const [totalLength, setTotalLength] = useState(0);
-  const [limit, setLimit] = useState(15);
+  const [pokemons, setPokemons] = useState([]); // 전체 포켓몬 리스트
+  const [displayPokemon, setDisplayPokemon] = useState([]); // 화면에 보여질 포켓몬 리스트
+  const [pokemonsNameList, setPokemonsNameList] = useState([]); // 포켓몬 이름 리스트
+  const [totalLength, setTotalLength] = useState(0); // 전체 길이
+  const [limit, setLimit] = useState(15); // 화면에 보여질 포켓몬 개수
 
   const [searchData, setSearchData] = useState([]);
 
@@ -46,7 +44,7 @@ const MainPage = () => {
 
   const fetchPokemonData = async () => {
     try {
-      const api = new Api(POKEMONS_URL);
+      const api = new API(POKEMONS_URL);
       const results = await api.getData();
 
       setPokemons(results);
