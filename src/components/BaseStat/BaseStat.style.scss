@@ -1,0 +1,25 @@
+@import "../../styles/global.scss";
+
+.BaseStat {
+  color: #fff;
+  .name,
+  .gauge,
+  .max {
+    padding: 0.5rem;
+  }
+  .gauge {
+    .full-gauge {
+      width: 10rem;
+      height: 0.5rem;
+      background-color: gray;
+      border-radius: 0.5rem;
+      .stat-gauge {
+        height: 0.5rem;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+  .value {
+    padding: 0 1rem;
+  }
+}

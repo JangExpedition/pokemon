@@ -2,9 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import BaseStat from "../../components/BaseStat";
-import DamageModal from "../../components/DamageModal";
-import Type from "../../components/Type";
+import { BaseStat, DamageModal, Type } from "../../components";
 
 const DetailPage = () => {
   const [pokemonData, setPokemonData] = useState({});

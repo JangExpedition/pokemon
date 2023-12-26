@@ -1,6 +1,7 @@
+import "./BaseStat.style.scss";
 import React, { useEffect, useRef } from "react";
 
-const BaseStat = ({ valueStat, nameStat, type }) => {
+export const BaseStat = ({ valueStat, nameStat, type }) => {
   const statGauge = useRef(null);
 
   useEffect(() => {
@@ -21,5 +22,3 @@ const BaseStat = ({ valueStat, nameStat, type }) => {
     </tr>
   );
 };
-
-export default BaseStat;

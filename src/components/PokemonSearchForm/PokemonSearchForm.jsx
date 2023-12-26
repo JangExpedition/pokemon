@@ -1,7 +1,8 @@
+import "./PokemonSearchForm.style.scss";
 import React, { useEffect, useRef, useState } from "react";
-import { useDebounce } from "../hooks/useDebounce";
+import { useDebounce } from "../../hooks/useDebounce";
 
-const PokemonSearchForm = ({ searchHandler, pokemonsNameList, setLimit }) => {
+export const PokemonSearchForm = ({ searchHandler, pokemonsNameList, setLimit }) => {
   const [searchValue, setSearchValue] = useState("");
   const debounceValue = useDebounce(searchValue, 500);
 
@@ -59,5 +60,3 @@ const PokemonSearchForm = ({ searchHandler, pokemonsNameList, setLimit }) => {
     </form>
   );
 };
-
-export default PokemonSearchForm;

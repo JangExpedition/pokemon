@@ -1,8 +1,9 @@
+import "./PokemonCard.style.scss";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const PokemonCard = ({ pokemon }) => {
+export const PokemonCard = ({ pokemon }) => {
   const [pokemonData, setPokemonData] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -48,5 +49,3 @@ const PokemonCard = ({ pokemon }) => {
     </Link>
   );
 };
-
-export default PokemonCard;

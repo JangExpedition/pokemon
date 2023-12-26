@@ -1,6 +1,7 @@
+import "./Header.style.scss";
 import React from "react";
 
-const Header = () => {
+export const Header = () => {
   return (
     <header className="Header">
       <img
@@ -13,5 +14,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

@@ -1,8 +1,7 @@
 import "../../styles/global.scss";
 import React, { useEffect, useState } from "react";
 
-import PokemonCard from "../../components/PokemonCard";
-import PokemonSearchForm from "../../components/PokemonSearchForm";
+import { PokemonCard, PokemonSearchForm } from "../../components";
 
 import { API, POKEMONS_URL } from "../../api/api";
 

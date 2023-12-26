@@ -1,19 +1,10 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Header from "./components/Header";
+import { Layout } from "./components";
 import MainPage from "./pages/MainPage";
 import DetailPage from "./pages/DetailPage";
-
-const Layout = () => {
-  return (
-    <>
-      <Header />
-      <Outlet />
-    </>
-  );
-};
 
 const App = () => {
   return (
@@ -28,4 +19,4 @@ const App = () => {
   );
 };
 
-createRoot(document.getElementById("app")).render(<App />);
+createRoot(document.getElementById("root")).render(<App />);

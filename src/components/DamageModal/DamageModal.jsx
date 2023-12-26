@@ -1,8 +1,9 @@
+import "./DamageModal.style.scss";
 import React, { useEffect, useState, useRef } from "react";
-import useOnClickOutSide from "../hooks/useOnClickOutSide";
-import Type from "./Type";
+import useOnClickOutSide from "../../hooks/useOnClickOutSide";
+import { Type } from "../index";
 
-const DamageModal = ({ setIsModalOpen, damageRelations }) => {
+export const DamageModal = ({ setIsModalOpen, damageRelations }) => {
   const [damagePokemonForm, setDamagePokemonForm] = useState();
   const modalRef = useRef();
 
@@ -152,5 +153,3 @@ const DamageModal = ({ setIsModalOpen, damageRelations }) => {
     </div>
   );
 };
-
-export default DamageModal;
