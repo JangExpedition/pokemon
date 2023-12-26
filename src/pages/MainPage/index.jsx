@@ -1,4 +1,4 @@
-import "../../styles/global.scss";
+import "./index.style.scss";
 import React, { useEffect, useState } from "react";
 
 import { PokemonCard, PokemonSearchForm } from "../../components";
