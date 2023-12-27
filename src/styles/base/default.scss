@@ -1,0 +1,44 @@
+@use "../utils/" as *;
+// 시맨틱 태그 iE 맞춤
+header,
+footer,
+main,
+section,
+article,
+aside,
+nav,
+figure,
+figcaption {
+  display: block;
+}
+
+// 박스 사이징 설정
+body,
+body::before,
+body::after,
+body *,
+body *::before,
+body *::after {
+  box-sizing: border-box;
+}
+
+// 본문 기본 폰트, 글자 크기, 굵기, 배경 색상 지정
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Yeon+Sung&display=swap");
+body {
+  font-family: "Nanum Pen Script";
+}
+
+main.main {
+  @include center();
+  @include full-frame();
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-weight: bold;
+  cursor: pointer;
+}

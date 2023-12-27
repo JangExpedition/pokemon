@@ -1,22 +1,30 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./styles/index.scss";
+import "./styles/global.scss";
 
-import { Layout } from "./components";
-import MainPage from "./pages/MainPage";
-import DetailPage from "./pages/DetailPage";
+import React from "react";
+import { useRoutes } from "react-router-dom";
+
+import Layout from "./pages/Layout/Layout";
+import Main from "./pages/Main/Main";
+import Detail from "./pages/Detail/Detail";
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<MainPage />} />
-          <Route path="/pokemon/:id" element={<DetailPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  const routeElement = useRoutes([
+    {
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Main />,
+        },
+        {
+          path: "/pokemon/:id",
+          element: <Detail />,
+        },
+      ],
+    },
+  ]);
+  return routeElement;
 };
 
-createRoot(document.getElementById("root")).render(<App />);
+export default App;

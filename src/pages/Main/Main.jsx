@@ -1,11 +1,11 @@
-import "./index.style.scss";
+import styles from "./Main.module.scss";
 import React, { useEffect, useState } from "react";
 
 import { PokemonCard, PokemonSearchForm } from "../../components";
 
 import { API, POKEMONS_URL } from "../../api/api";
 
-const MainPage = () => {
+const Main = () => {
   const [pokemons, setPokemons] = useState([]); // 전체 포켓몬 리스트
   const [displayPokemon, setDisplayPokemon] = useState([]); // 화면에 보여질 포켓몬 리스트
   const [pokemonsNameList, setPokemonsNameList] = useState([]); // 포켓몬 이름 리스트
@@ -91,4 +91,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default Main;

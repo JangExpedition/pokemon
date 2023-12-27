@@ -1,4 +1,4 @@
-@import "../../styles/global.scss";
+@use "@styles/" as *;
 
 .Header {
   width: 100%;
@@ -18,10 +18,8 @@
     cursor: pointer;
   }
   .profile-wrapper {
-    display: flex;
+    @include center();
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     .profile-image {
       width: 48px;
       height: 48px;

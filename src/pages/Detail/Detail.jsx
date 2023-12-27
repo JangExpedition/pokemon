@@ -1,4 +1,4 @@
-import "./index.style.scss";
+import styles from "./Detail.module.scss";
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { BaseStat, DamageModal, Type } from "../../components";
 
-const DetailPage = () => {
+const Detail = () => {
   const [pokemonData, setPokemonData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -205,4 +205,4 @@ const DetailPage = () => {
   );
 };
 
-export default DetailPage;
+export default Detail;

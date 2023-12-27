@@ -3,7 +3,7 @@ const HtmlPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: `${path.resolve(__dirname, "./src")}/app.jsx`,
+  entry: `${path.resolve(__dirname, "./src")}/index.jsx`,
   output: {
     publicPath: "/",
     // path: path.resolve(__dirname, "dist"),
@@ -11,7 +11,10 @@ module.exports = {
     clean: true,
   },
   resolve: {
-    extensions: [".js", ".jsx"], // 여기에 사용하는 확장자를 추가
+    extensions: [".js", ".jsx"],
+    alias: {
+      "@styles": path.resolve(__dirname, "./src/styles"),
+    },
   },
   module: {
     rules: [
@@ -32,7 +35,7 @@ module.exports = {
       template: "./index.html",
     }),
     new CopyPlugin({
-      patterns: [{ from: "static" }],
+      patterns: [{ from: "public" }],
     }),
   ],
 
