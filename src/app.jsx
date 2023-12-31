@@ -13,14 +13,8 @@ const App = () => {
     {
       element: <Layout />,
       children: [
-        {
-          path: "/",
-          element: <Main />,
-        },
-        {
-          path: "/pokemon/:id",
-          element: <Detail />,
-        },
+        { path: "/", element: <Main /> },
+        { path: "pokemon/:id", element: <Detail /> },
       ],
     },
   ]);

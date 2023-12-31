@@ -1,12 +1,14 @@
 @use "./utils/" as *;
+
 html {
   margin: 0;
   padding: 0;
 }
 
 body {
-  @include full-frame();
-  min-width: 375px;
+  margin: 0;
+  padding: 0;
+  background-color: $base-color;
 }
 
 .button {
@@ -21,7 +23,7 @@ body {
 
 .button-wrapper {
   width: 100%;
-  @include center();
+  @include center-row();
 }
 
 @media screen and (max-width: 50rem) {

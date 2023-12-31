@@ -121,7 +121,7 @@ const Detail = () => {
   }
 
   return (
-    <div className="DetailPage">
+    <div className={styles.DetailPage}>
       {isModalOpen && (
         <DamageModal
           setIsModalOpen={setIsModalOpen}

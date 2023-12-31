@@ -1,4 +1,4 @@
-import "./DamageModal.style.scss";
+import styles from "./DamageModal.module.scss";
 import React, { useEffect, useState, useRef } from "react";
 import useOnClickOutSide from "../../hooks/useOnClickOutSide";
 import { Type } from "../index";

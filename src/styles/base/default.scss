@@ -29,8 +29,9 @@ body {
 }
 
 main.main {
-  @include center();
-  @include full-frame();
+  @include full-frame;
+  padding: 5rem 0;
+  background-color: #fff;
 }
 
 a {

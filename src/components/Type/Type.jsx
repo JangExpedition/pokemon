@@ -1,4 +1,4 @@
-import "./Type.style.scss";
+import styles from "./Type.module.scss";
 import React from "react";
 
 export const Type = ({ type }) => {

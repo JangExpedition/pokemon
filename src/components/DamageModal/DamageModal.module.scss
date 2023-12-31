@@ -2,7 +2,7 @@
 
 .DamageModal {
   @include full-frame();
-  @include center();
+  @include center-row();
 
   position: absolute;
   backdrop-filter: blur(5px);
@@ -26,8 +26,7 @@
     }
     .relation {
       width: 100%;
-      @include center();
-      flex-direction: column;
+      @include center-col();
       h2 {
         font-size: 1.5rem;
         font-weight: bold;

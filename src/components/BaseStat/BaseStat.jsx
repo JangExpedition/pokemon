@@ -1,4 +1,4 @@
-import "./BaseStat.style.scss";
+import styles from "./BaseStat.module.scss";
 import React, { useEffect, useRef } from "react";
 
 export const BaseStat = ({ valueStat, nameStat, type }) => {
@@ -10,15 +10,15 @@ export const BaseStat = ({ valueStat, nameStat, type }) => {
   }, []);
 
   return (
-    <tr className="BaseStat">
-      <th className="name">{nameStat}</th>
-      <td className="value">{valueStat}</td>
-      <td className="gauge">
-        <div className="full-gauge">
-          <div className={`stat-gauge ${type}`} ref={statGauge}></div>
+    <tr className={styles.BaseStat}>
+      <th className={styles.name}>{nameStat}</th>
+      <td className={styles.value}>{valueStat}</td>
+      <td className={styles.gauge}>
+        <div className={styles.fullGauge}>
+          <div className={styles.statGauge} ref={statGauge}></div>
         </div>
       </td>
-      <td className="max">255</td>
+      <td className={styles.max}>255</td>
     </tr>
   );
 };

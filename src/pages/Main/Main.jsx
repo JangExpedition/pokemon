@@ -1,4 +1,5 @@
 import styles from "./Main.module.scss";
+
 import React, { useEffect, useState } from "react";
 
 import { PokemonCard, PokemonSearchForm } from "../../components";
@@ -62,17 +63,17 @@ const Main = () => {
   };
 
   return (
-    <div className="MainPage">
+    <>
       <PokemonSearchForm
         searchHandler={searchHandler}
         pokemonsNameList={pokemonsNameList}
         setLimit={setLimit}
       />
-      <div className="pokemon-container">
+      <div className={styles.pokemonContainer}>
         {displayPokemon.length > 0 ? (
           displayPokemon.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)
         ) : (
-          <h1 className="no-pokemon">포켓몬이 없습니다.</h1>
+          <h1 className={styles.noPokemon}>포켓몬이 없습니다.</h1>
         )}
       </div>
       {displayPokemon.length < totalLength && (
@@ -87,7 +88,7 @@ const Main = () => {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
