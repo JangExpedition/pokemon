@@ -24,22 +24,24 @@ export const PokemonSearchForm = ({ searchHandler, pokemonsNameList, setLimit })
 
   return (
     <form className={styles.pokemonSearchForm}>
-      <input
-        type="text"
-        className={styles.pokemonSearch}
-        onChange={(e) => {
-          setSearchValue(e.target.value);
-          if (e.target.value) {
-            searchListDisplayHandler(true);
-          } else {
-            searchListDisplayHandler(false);
-          }
-        }}
-        placeholder="포켓몬 이름을 입력해주세요."
-        ref={searchData}
-      ></input>
-      <i className="fa-solid fa-magnifying-glass"></i>
-      <ul ref={searchList}>
+      <div>
+        <input
+          type="text"
+          className={styles.pokemonSearch}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            if (e.target.value) {
+              searchListDisplayHandler(true);
+            } else {
+              searchListDisplayHandler(false);
+            }
+          }}
+          placeholder="포켓몬 이름을 입력해주세요."
+          ref={searchData}
+        ></input>
+        <i className={`fa-solid fa-magnifying-glass ${styles.searchIcon}`}></i>
+      </div>
+      <ul className={styles.searchResults} ref={searchList}>
         {pokemonsNameList?.map((name) => {
           return (
             <li

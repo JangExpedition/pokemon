@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import { PokemonCard, PokemonSearchForm } from "../../components";
 
-import { API, POKEMONS_URL } from "../../api/api";
+import { ALL_POKEMONS_URL, getAllPokemon } from "../../api/api";
 
 const Main = () => {
   const [pokemons, setPokemons] = useState([]); // 전체 포켓몬 리스트
@@ -44,12 +44,11 @@ const Main = () => {
 
   const fetchPokemonData = async () => {
     try {
-      const api = new API(POKEMONS_URL);
-      const results = await api.getData();
-
-      setPokemons(results);
-      setTotalLength(results.length);
-      setDisplayPokemon(results.slice(0, limit));
+      getAllPokemon(ALL_POKEMONS_URL).then((result) => {
+        setPokemons(result);
+        setTotalLength(result.length);
+        setDisplayPokemon(result.slice(0, limit));
+      });
       setSearchData([]);
     } catch (error) {
       setPokemons([]);

@@ -1,36 +1,26 @@
 import styles from "./PokemonCard.module.scss";
-import axios from "axios";
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { getPokemonData } from "../../api/api";
 
 export const PokemonCard = ({ pokemon }) => {
   const [pokemonData, setPokemonData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPokemonData(pokemon);
+    getPokemonData(pokemon.url).then((data) => {
+      setPokemonData(data);
+    });
   }, []);
 
-  const getPokemonData = async (pokemon) => {
-    try {
-      const response = await axios.get(pokemon.url);
-      setPokemonData({
-        id: response.data.id,
-        image: response.data.sprites.other["official-artwork"].front_default,
-        name: response.data.name,
-        type: response.data.types[0].type.name,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <Link to={`/pokemon/${pokemonData?.name}`} className="PokemonCard">
-      <p className={`${pokemonData?.type}`}>#{String(pokemonData?.id).padStart(3, "0")}</p>
-      <div className="pokemon-image-wrapper">
+    <Link to={`/pokemon/${pokemonData?.name}`} className={styles.PokemonCard}>
+      <p>#{String(pokemonData?.id).padStart(3, "0")}</p>
+      <div className={styles.pokemonImageWrapper}>
         {loading && (
-          <div className="loading">
+          <div className={loading}>
             <span>...loading</span>
           </div>
         )}
@@ -43,8 +33,8 @@ export const PokemonCard = ({ pokemon }) => {
           }}
         />
       </div>
-      <div className={`pokemon-name-wrapper ${pokemonData?.type}`}>
-        <span className="pokemon-name">{pokemonData.name?.toUpperCase()}</span>
+      <div className={`${styles.pokemonNameWrapper} type-${pokemonData?.type}`}>
+        <span className={styles.pokemonName}>{pokemonData.name?.toUpperCase()}</span>
       </div>
     </Link>
   );

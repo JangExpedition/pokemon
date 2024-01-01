@@ -1,22 +1,36 @@
 @use "@styles/" as *;
 
 .pokemonSearchForm {
-  @include center-row;
+  @include center-col;
   width: 100%;
   height: 5rem;
   background-color: $base-color;
+  div {
+    width: 80%;
+    height: 50%;
+    @include center-row;
+  }
 }
 
 .pokemonSearch {
-  width: 80%;
-  height: 50%;
+  @include full-frame;
   padding: 0.25rem 1rem;
   background-color: #000;
   color: #fff;
   border: 1px solid #000;
   outline: none;
 }
-ul {
+
+.searchIcon {
+  @include box(40px);
+  @include center-row;
+  font-size: 1.5rem;
+  background-color: #da343c;
+  color: #fff;
+  cursor: pointer;
+}
+
+.searchResults {
   position: absolute;
   max-height: 15rem;
   overflow: scroll;
