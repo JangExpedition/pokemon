@@ -33,7 +33,7 @@ export const PokemonCard = ({ pokemon }) => {
           }}
         />
       </div>
-      <div className={`${styles.pokemonNameWrapper} type-${pokemonData?.type}`}>
+      <div className={`${styles.pokemonNameWrapper} type-back-${pokemonData?.type}`}>
         <span className={styles.pokemonName}>{pokemonData.name?.toUpperCase()}</span>
       </div>
     </Link>

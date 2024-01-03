@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { BaseStat, DamageModal, Type, Previous, PreviousOrNext } from "../../components";
 import { getPokemonDetailData } from "../../api/api";
+import { DetailSection } from "../../components/DetailSection/DetailSection";
 
 const Detail = () => {
   const [pokemonData, setPokemonData] = useState({});
@@ -40,7 +41,7 @@ const Detail = () => {
           damageRelations={pokemonData?.damageRelations}
         />
       )}
-      <div className={`type-${pokemonData?.types[0]} ${styles.typeBackground}`}>
+      <div className={`type-back-${pokemonData?.types[0]} ${styles.typeBackground}`}>
         <Link to={"/"} className={styles.back}>{`< ${pokemonData?.name?.toUpperCase()}`}</Link>
         <span>#{String(pokemonData?.id).padStart(3, "0")}</span>
       </div>
@@ -52,32 +53,10 @@ const Detail = () => {
         onClick={() => setIsModalOpen(true)}
       ></img>
       <div className={styles.infoContainer}>
-        <section className={styles.typeSection}>
-          {pokemonData?.types.map((type) => (
-            <Type key={type} type={type} />
-          ))}
-        </section>
-        <section className={styles.dataSection}>
-          <h4 className={`type-${pokemonData?.types[0]}`}>정보</h4>
-          <div className={styles.oneRow}>
-            <div className={styles.oneData}>
-              <div className={styles.dataTitle}>Weight</div>
-              <div>{pokemonData?.weight}kg</div>
-            </div>
-            <div className={styles.oneData}>
-              <div className={styles.dataTitle}>Height</div>
-              <div>{pokemonData?.height}m</div>
-            </div>
-            <div className={styles.oneData}>
-              <div className={styles.dataTitle}>Moves</div>
-              {pokemonData?.abilities.map((ability) => (
-                <div key={ability}>{ability}</div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <DetailSection type={"type"} pokemonData={pokemonData} />
+        <DetailSection type={"data"} pokemonData={pokemonData} />
         <section className={styles.statSection}>
-          <h4 className={`type-${pokemonData?.types[0]}`}>기본 능력치</h4>
+          <h4 className={`type-back-${pokemonData?.types[0]}`}>기본 능력치</h4>
           <table>
             <tbody>
               {pokemonData?.stats.map((stat) => (
@@ -92,7 +71,7 @@ const Detail = () => {
           </table>
         </section>
         <section className={styles.descriptionSection}>
-          <h4 className={`type-${pokemonData?.types[0]}`}>설명</h4>
+          <h4 className={`type-back-${pokemonData?.types[0]}`}>설명</h4>
           <div className={styles.description}>{pokemonData?.description}</div>
         </section>
         <section className={styles.spritesSection}>

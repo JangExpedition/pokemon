@@ -1,6 +1,75 @@
 $base-color: #253238;
 
 .type {
+  &-primary {
+    color: #ffcb05;
+  }
+  &-second {
+    color: #3d7dca;
+  }
+  &-third {
+    color: #003a70;
+  }
+  &-normal {
+    color: #a8a77a;
+  }
+  &-fire {
+    color: #ee8130;
+  }
+  &-water {
+    color: #6390f0;
+  }
+  &-electric {
+    color: #dfbc30;
+  }
+  &-grass {
+    color: #7ac74c;
+  }
+  &-ice {
+    color: #97d4d2;
+  }
+  &-fighting {
+    color: #b83e3a;
+  }
+  &-poison {
+    color: #a33ea1;
+  }
+  &-ground {
+    color: #e2bf65;
+  }
+  &-flying {
+    color: #a98ff3;
+  }
+  &-psychic {
+    color: #f95587;
+  }
+  &-bug {
+    color: #a6b91a;
+  }
+  &-rock {
+    color: #b6a136;
+  }
+  &-ghost {
+    color: #735797;
+  }
+  &-dragon {
+    color: #6f35fc;
+  }
+  &-dark {
+    color: #705746;
+  }
+  &-steel {
+    color: #b7b7ce;
+  }
+  &-fairy {
+    color: #d685ad;
+  }
+  &-none {
+    color: #bfbfbf;
+  }
+}
+
+.type-back {
   color: #fff;
   &-primary {
     background-color: #ffcb05;
@@ -11,7 +80,7 @@ $base-color: #253238;
   &-third {
     background-color: #003a70;
   }
-  &-normal-color {
+  &-normal {
     background-color: #a8a77a;
   }
   &-fire {

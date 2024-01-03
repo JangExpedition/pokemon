@@ -1,3 +1,5 @@
+@use "../../styles/" as *;
+
 @mixin common($type) {
   position: absolute;
   top: 50%;

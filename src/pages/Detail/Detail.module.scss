@@ -44,40 +44,6 @@
   width: 100%;
   box-sizing: border-box;
   padding: 2rem;
-  section {
-    width: 100%;
-    @include center-col();
-    margin-bottom: 1rem;
-    h4 {
-      background-color: $base-color !important;
-      font-weight: bold;
-      text-align: center;
-      margin: 1rem;
-    }
-  }
-  .typeSection {
-    gap: 2rem;
-    flex-direction: row;
-  }
-  .dataSection {
-    .oneRow {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 3rem;
-      .oneData {
-        display: flex;
-        flex-direction: column;
-        color: #fff !important;
-        width: 100px;
-        text-align: center;
-        gap: 0.5rem;
-        .dataTitle {
-          font-weight: bold;
-        }
-      }
-    }
-  }
   .statSection {
     table {
       width: 50%;

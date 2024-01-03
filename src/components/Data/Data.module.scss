@@ -1,0 +1,11 @@
+.oneData {
+  display: flex;
+  flex-direction: column;
+  color: #fff !important;
+  text-align: center;
+  width: 100px;
+  gap: 0.5rem;
+  .dataTitle {
+    font-weight: bold;
+  }
+}

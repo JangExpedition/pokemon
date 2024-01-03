@@ -1,0 +1,39 @@
+@use "../../styles/" as *;
+
+@mixin section {
+  width: 100%;
+  @include center-col();
+  margin-bottom: 1rem;
+  gap: 1.5rem;
+}
+
+.sectionTitle {
+  background-color: $base-color !important;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1rem;
+}
+
+.type {
+  @include section();
+  flex-direction: row;
+}
+
+.data {
+  @include section();
+  .oneRow {
+    @include center-row;
+    .oneData {
+      display: flex;
+      flex-direction: column;
+      color: #fff !important;
+      text-align: center;
+      width: 100px;
+      gap: 0.5rem;
+      .dataTitle {
+        font-weight: bold;
+      }
+    }
+  }
+}
