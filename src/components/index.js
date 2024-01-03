@@ -4,3 +4,4 @@ export * from "./Header/Header";
 export * from "./PokemonCard/PokemonCard";
 export * from "./PokemonSearchForm/PokemonSearchForm";
 export * from "./Type/Type";
+export * from "./PreviousOrNext/PreviousOrNext";

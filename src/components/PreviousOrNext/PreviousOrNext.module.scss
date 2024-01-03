@@ -1,0 +1,22 @@
+@mixin common($type) {
+  position: absolute;
+  top: 50%;
+  transform: translateY(50%);
+  font-weight: bold;
+  font-size: 3rem;
+  color: #fff;
+  text-decoration: none;
+  @if ($type == "previous") {
+    left: 0.5rem;
+  } @else if($type == "next") {
+    right: 0.5rem;
+  }
+}
+
+.previous {
+  @include common("previous");
+}
+
+.next {
+  @include common("next");
+}

@@ -16,11 +16,11 @@ export const PokemonCard = ({ pokemon }) => {
   }, []);
 
   return (
-    <Link to={`/pokemon/${pokemonData?.name}`} className={styles.PokemonCard}>
+    <Link to={`/pokemon/${pokemonData?.name}`} className={styles.card}>
       <p>#{String(pokemonData?.id).padStart(3, "0")}</p>
       <div className={styles.pokemonImageWrapper}>
         {loading && (
-          <div className={loading}>
+          <div className={styles.loading}>
             <span>...loading</span>
           </div>
         )}
