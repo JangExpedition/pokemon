@@ -1,24 +1,17 @@
 import axios from "axios";
 
-export const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
+export const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=##{page}&offset=0";
 export const DETAIL_URL = "https://pokeapi.co/api/v2/pokemon/##{id}";
+const LIMIT = 15;
 
-export class API {
-  url;
-
-  constructor(url) {
-    this.url = url;
-  }
-
-  async getData() {
-    return (await axios.get(this.url)).data.results;
-  }
-}
-
-export const getAllPokemon = async (url) => {
+// 포켓몬 목록을 가져오는 메서드
+export const getPokemonList = async (page) => {
+  const count = LIMIT * page;
+  const url = ALL_POKEMONS_URL.replace("##{page}", count);
   return (await axios.get(url)).data.results;
 };
 
+// 포켓몬 카드 디스플레이에 필요한 데이터를 가져오는 메서드
 export const getPokemonData = async (url) => {
   try {
     const response = await axios.get(url);
@@ -33,6 +26,13 @@ export const getPokemonData = async (url) => {
   }
 };
 
+/**
+ * ==================================================
+ * 포켓몬 상세 정보 메서드 모음
+ * ==================================================
+ */
+
+// 포켓몬 상세정보를 가져오는 메서드
 export const getPokemonDetailData = async (id) => {
   const url = DETAIL_URL.replace("##{id}", id);
 
@@ -70,6 +70,7 @@ export const getPokemonDetailData = async (id) => {
   }
 };
 
+// 이전, 다음 포켓몬 데이터
 const getNextAndPreviousPokemon = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon/?limit=1&offset=${id - 1}`;
   const result = await axios.get(url);
@@ -83,6 +84,7 @@ const getNextAndPreviousPokemon = async (id) => {
   };
 };
 
+// 포켓몬 설명 가져오는 메서드
 const getPokemonDescription = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
   const response = await axios.get(url);
@@ -91,6 +93,7 @@ const getPokemonDescription = async (id) => {
   return description[Math.floor(Math.random() * description.length)];
 };
 
+// 포켓몬 한글 설명으로 변경 및 개행 문자 처리하는 메서드
 const filterAndFormatDescription = (flavorText) => {
   const koreanDescription = flavorText
     ?.filter((text) => text.language.name === "ko")
@@ -99,6 +102,7 @@ const filterAndFormatDescription = (flavorText) => {
   return koreanDescription;
 };
 
+// 포켓몬 이미지 포맷하는 메서드
 const formatPokemonSprites = (sprites) => {
   const newSprites = { ...sprites };
 
@@ -111,12 +115,14 @@ const formatPokemonSprites = (sprites) => {
   return Object.values(newSprites);
 };
 
+// 포켓몬 Move 데이터 포맷 메서드
 const formatAbilities = (abilities) => {
   return abilities
     .filter((ability, index) => index <= 1)
     .map((obj) => obj.ability.name.replaceAll("-", " "));
 };
 
+// 포켓몬 능력치 포맷 메서드
 const formatStats = ([statHP, statATK, statDEP, statSTAK, statSDEP, statSPD]) => [
   { name: "Hit Points", baseStat: statHP.base_stat },
   { name: "Attack", baseStat: statATK.base_stat },

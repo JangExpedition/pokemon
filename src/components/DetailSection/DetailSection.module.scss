@@ -50,7 +50,8 @@
 }
 
 .sprites {
-  @include center-row();
+  @include section();
+  flex-direction: row !important;
   .spritesContainer {
     flex-wrap: wrap;
     .sprite {

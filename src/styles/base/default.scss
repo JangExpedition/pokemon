@@ -32,7 +32,7 @@ $header-height: 5rem;
 
 main.main {
   @include full-frame;
-  padding: $header-height 0;
+  padding-top: $header-height;
   background-color: #fff;
 }
 

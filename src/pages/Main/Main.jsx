@@ -1,92 +1,71 @@
 import styles from "./Main.module.scss";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import { PokemonCard, PokemonSearchForm } from "../../components";
+import { PokemonCard } from "../../components";
 
-import { ALL_POKEMONS_URL, getAllPokemon } from "../../api/api";
+import { getPokemonList } from "../../api/api";
 
 const Main = () => {
-  const [pokemons, setPokemons] = useState([]); // 전체 포켓몬 리스트
-  const [displayPokemon, setDisplayPokemon] = useState([]); // 화면에 보여질 포켓몬 리스트
-  const [pokemonsNameList, setPokemonsNameList] = useState([]); // 포켓몬 이름 리스트
-  const [totalLength, setTotalLength] = useState(0); // 전체 길이
-  const [limit, setLimit] = useState(15); // 화면에 보여질 포켓몬 개수
+  const [pokemons, setPokemons] = useState([]); // 화면에 표시될 리스트
+  const [page, setPage] = useState(1); // 페이지
+  const [loading, setLoading] = useState(false); // 로딩중인지 아닌지
+  const pageEnd = useRef(); // 관찰 대상
 
-  const [searchData, setSearchData] = useState([]);
-
+  // 페이지가 변화하면 포켓몬 리스트를 더 요청한다.
   useEffect(() => {
-    if (searchData.length) {
-      setDisplayPokemon(searchData.slice(0, limit));
-      setTotalLength(searchData.length);
-    } else {
-      setDisplayPokemon(pokemons.slice(0, limit));
-      setTotalLength(pokemons.length);
-    }
-  }, [limit]);
+    fetchPokemonData(page);
+  }, [page]);
 
+  // 데이터 로딩이 끝나면 observer 객체를 생성하고 관찰 대상 전체가 교차 영역으로 진입하면 실행한다.
   useEffect(() => {
-    if (searchData.length > 0) {
-      setTotalLength(searchData.length);
-      setDisplayPokemon(searchData.slice(0, limit));
-      setPokemonsNameList(searchData.map((pokemon) => pokemon.name));
+    if (loading) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            loadMore();
+          }
+        },
+        { threshold: 1 }
+      );
+      observer.observe(pageEnd.current);
     }
-  }, [searchData]);
+  }, [loading]);
 
-  const searchHandler = (value) => {
-    if (value.length > 0) {
-      console.log(value);
-      setSearchData(pokemons.filter((pokemon) => pokemon.name.includes(value)));
-    } else {
-      fetchPokemonData();
-    }
-  };
-
-  const fetchPokemonData = async () => {
+  // 데이터를 가져오고 나면 로딩이 완료됐음을 알려준다.
+  const fetchPokemonData = async (page) => {
     try {
-      getAllPokemon(ALL_POKEMONS_URL).then((result) => {
+      getPokemonList(page).then((result) => {
         setPokemons(result);
-        setTotalLength(result.length);
-        setDisplayPokemon(result.slice(0, limit));
+        setLoading(true);
       });
-      setSearchData([]);
     } catch (error) {
       setPokemons([]);
-      setTotalLength(0);
       console.log(error);
     }
   };
 
-  const showMore = () => {
-    setLimit(limit + 15);
+  // 페이지를 수를 올려준다.
+  const loadMore = () => {
+    setPage((prev) => prev + 1);
   };
 
   return (
     <>
-      <PokemonSearchForm
-        searchHandler={searchHandler}
-        pokemonsNameList={pokemonsNameList}
-        setLimit={setLimit}
-      />
       <div className={styles.pokemonContainer}>
-        {displayPokemon.length > 0 ? (
-          displayPokemon.map((pokemon) => <PokemonCard key={pokemon.url} pokemon={pokemon} />)
+        {pokemons.length > 0 ? (
+          <>
+            {pokemons.map((pokemon) => (
+              <PokemonCard key={pokemon.url} pokemon={pokemon} />
+            ))}
+            <div className={styles.loading} ref={pageEnd}>
+              <span>...loading</span>
+            </div>
+          </>
         ) : (
           <h1 className={styles.noPokemon}>포켓몬이 없습니다.</h1>
         )}
       </div>
-      {displayPokemon.length < totalLength && (
-        <div className="button-wrapper">
-          <button
-            className="button"
-            onClick={() => {
-              showMore();
-            }}
-          >
-            더보기
-          </button>
-        </div>
-      )}
     </>
   );
 };

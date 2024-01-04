@@ -14,3 +14,13 @@
   text-align: center;
   padding: 2rem 1rem;
 }
+
+.loading {
+  @include center-row();
+  background-color: #fff;
+  color: $base-color;
+  width: 100%;
+  height: 5rem;
+  font-weight: bold;
+  font-size: 3rem;
+}

@@ -1,6 +1,6 @@
 import styles from "./DamageModal.module.scss";
 import React, { useEffect, useState, useRef } from "react";
-import useOnClickOutSide from "../../hooks/useOnClickOutSide";
+import { useOnClickOutSide } from "../../hooks/index";
 import { Type } from "../index";
 
 export const DamageModal = ({ setIsModalOpen, damageRelations }) => {
