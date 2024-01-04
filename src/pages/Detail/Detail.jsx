@@ -52,36 +52,13 @@ const Detail = () => {
         alt={pokemonData?.name}
         onClick={() => setIsModalOpen(true)}
       ></img>
-      <div className={styles.infoContainer}>
-        <DetailSection type={"type"} pokemonData={pokemonData} />
-        <DetailSection type={"data"} pokemonData={pokemonData} />
-        <section className={styles.statSection}>
-          <h4 className={`type-back-${pokemonData?.types[0]}`}>기본 능력치</h4>
-          <table>
-            <tbody>
-              {pokemonData?.stats.map((stat) => (
-                <BaseStat
-                  key={stat.name}
-                  valueStat={stat.baseStat}
-                  nameStat={stat.name}
-                  type={pokemonData?.types[0]}
-                />
-              ))}
-            </tbody>
-          </table>
-        </section>
-        <section className={styles.descriptionSection}>
-          <h4 className={`type-back-${pokemonData?.types[0]}`}>설명</h4>
-          <div className={styles.description}>{pokemonData?.description}</div>
-        </section>
-        <section className={styles.spritesSection}>
-          <div className={styles.sprites}>
-            {pokemonData?.sprites.map((sprite) => (
-              <img src={sprite} key={sprite} alt="sprite" />
-            ))}
-          </div>
-        </section>
-      </div>
+      <did className={styles.infoContainer}>
+        <DetailSection type={"type"} title={""} pokemonData={pokemonData} />
+        <DetailSection type={"data"} title={"정보"} pokemonData={pokemonData} />
+        <DetailSection type={"stat"} title={"기본 능력치"} pokemonData={pokemonData} />
+        <DetailSection type={"descriptionData"} title={"설명"} pokemonData={pokemonData} />
+        <DetailSection type={"sprites"} title={""} pokemonData={pokemonData} />
+      </did>
       {pokemonData?.previous && <PreviousOrNext type={"previous"} data={pokemonData.previous} />}
       {pokemonData?.next && <PreviousOrNext type={"next"} data={pokemonData.next} />}
     </div>

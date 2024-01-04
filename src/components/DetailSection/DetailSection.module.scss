@@ -37,3 +37,24 @@
     }
   }
 }
+
+.stat {
+  @include section();
+}
+
+.descriptionData {
+  @include section();
+  .description {
+    color: #fff;
+  }
+}
+
+.sprites {
+  @include center-row();
+  .spritesContainer {
+    flex-wrap: wrap;
+    .sprite {
+      width: 25%;
+    }
+  }
+}
