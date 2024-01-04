@@ -113,10 +113,10 @@ export const DamageModal = ({ setIsModalOpen, damageRelations }) => {
   };
 
   return (
-    <div className="DamageModal">
-      <div ref={modalRef} className="modal">
-        <div className="modal-header">
-          <span className="close-button" onClick={() => setIsModalOpen(false)}>
+    <div className={styles.DamageModal}>
+      <div ref={modalRef} className={styles.modal}>
+        <div className={styles.modalHeader}>
+          <span className={styles.closeButton} onClick={() => setIsModalOpen(false)}>
             X
           </span>
         </div>
@@ -131,9 +131,9 @@ export const DamageModal = ({ setIsModalOpen, damageRelations }) => {
               };
 
               return (
-                <div className="relation" key={key}>
+                <div className={styles.relation} key={key}>
                   <h2>{valueOfKeyName[key]}</h2>
-                  <div className="type-container">
+                  <div className={styles.typeContainer}>
                     {value.length > 0 ? (
                       value.map(({ name, url, damageValue }) => {
                         return <Type key={url} type={name} damageValue={damageValue} />;

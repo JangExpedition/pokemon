@@ -44,15 +44,6 @@
   width: 100%;
   box-sizing: border-box;
   padding: 2rem;
-  .sprites {
-    .spritesContainer {
-      @include center-row();
-      flex-wrap: wrap;
-      img {
-        width: 25%;
-      }
-    }
-  }
 }
 
 .loading {
