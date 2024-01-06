@@ -3,7 +3,7 @@ import styles from "./Detail.module.scss";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { BaseStat, DamageModal, Type, Previous, PreviousOrNext } from "../../components";
+import { DamageModal, PreviousOrNext } from "../../components";
 import { getPokemonDetailData } from "../../api/api";
 import { DetailSection } from "../../components/DetailSection/DetailSection";
 
@@ -20,6 +20,7 @@ const Detail = () => {
 
   const getPokemonData = (id) => {
     getPokemonDetailData(id).then((result) => {
+      console.log(result);
       setPokemonData(result);
       setIsLoading(false);
     });
@@ -41,7 +42,7 @@ const Detail = () => {
           damageRelations={pokemonData?.damageRelations}
         />
       )}
-      <div className={`type-back-${pokemonData?.types[0]} ${styles.typeBackground}`}>
+      <div className={`type-back-${pokemonData?.types[0].en} ${styles.typeBackground}`}>
         <Link to={"/"} className={styles.back}>{`< ${pokemonData?.name?.toUpperCase()}`}</Link>
         <span>#{String(pokemonData?.id).padStart(3, "0")}</span>
       </div>

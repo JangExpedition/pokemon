@@ -26,9 +26,9 @@ const Main = () => {
             loadMore();
           }
         },
-        { threshold: 1 }
+        { threshold: 1 } // 관찰 대상 전체가 진입 했을 때 콜백 실행
       );
-      observer.observe(pageEnd.current);
+      observer.observe(pageEnd.current); // 관찰 시작
     }
   }, [loading]);
 
@@ -56,7 +56,7 @@ const Main = () => {
         {pokemons.length > 0 ? (
           <>
             {pokemons.map((pokemon) => (
-              <PokemonCard key={pokemon.url} pokemon={pokemon} />
+              <PokemonCard key={pokemon.id} pokemon={pokemon} />
             ))}
             <div className={styles.loading} ref={pageEnd}>
               <span>...loading</span>
