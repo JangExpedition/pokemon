@@ -3,34 +3,20 @@ import axios from "axios";
 const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=##{page}&offset=0";
 const DETAIL_URL = "https://pokeapi.co/api/v2/pokemon/##{id}";
 const KOREAN_DATA_URL = "https://pokeapi.co/api/v2/pokemon-species/##{id}/";
+const TYPE_URL = "https://pokeapi.co/api/v2/type/##{id}";
 const LIMIT = 15; // 한 페이지에 보여줄 갯수
-
-class Pokemon {
-  id;
-  name;
-  image;
-  types;
-  weight;
-  height;
-  stats;
-  abilities;
-  next;
-  previous;
-  damageRelations;
-  sprites;
-  description;
-}
 
 // 포켓몬 목록을 가져오는 메서드
 export const getPokemonList = async (page) => {
-  const pokemonList = [];
+  let pokemonList = [];
   const count = LIMIT * page;
   const url = ALL_POKEMONS_URL.replace("##{page}", count);
-  const rowDataList = (await axios.get(url)).data.results;
+  pokemonList = (await axios.get(url)).data.results;
 
-  for (let i = 0; i < rowDataList.length; i++) {
-    const url = rowDataList[i].url;
+  const result = await pokemonList.map(async (data) => {
+    const url = data.url;
     const id = await getPokemonId(url);
+
     const name = await getPokemonKoreanName(id);
     const { image, types } = await getPokemonImageAndTypes(url);
 
@@ -41,10 +27,10 @@ export const getPokemonList = async (page) => {
       types,
     };
 
-    pokemonList.push(pokemon);
-  }
-  console.log(pokemonList);
-  return pokemonList;
+    return pokemon;
+  });
+
+  return Promise.all(result);
 };
 
 // 포켓몬 id를 가져오는 메서드
@@ -81,7 +67,7 @@ const formatTypes = (types) => {
 };
 
 // 포켓몬 한글 타입 가져오는 메서드
-const getPokemonTypeKo = async (url) => {
+export const getPokemonTypeKo = async (url) => {
   const response = (await axios.get(url)).data;
   return formatKorean(response);
 };
@@ -102,22 +88,23 @@ export const getPokemonDetailData = async (id) => {
   const url = DETAIL_URL.replace("##{id}", id);
   const result = await axios.get(url);
   if (result.data) {
-    const { id, weight, height, stats, abilities, sprites, types } = result.data;
+    const { id, weight, height, stats, abilities, sprites } = result.data;
     const name = await getPokemonKoreanName(id);
-    const { image, types_en, types_ko } = await getPokemonImageAndTypes(url);
+    const { image, types } = await getPokemonImageAndTypes(url);
     const nextAndPreviousPokemon = await getNextAndPreviousPokemon(id);
+    // const damageRelations = (await axios.get(TYPE_URL.replace("##{id}", id))).data.damage_relations;
 
-    const damageRelations = types.map(async (i) => {
-      const type = await axios.get(i.type.url);
-      return type.data.damage_relations;
-    });
+    const damageRelations = await Promise.all(
+      types.map(async () => {
+        return (await axios.get(TYPE_URL.replace("##{id}", id))).data.damage_relations;
+      })
+    );
 
     return {
       id,
       name,
       image,
-      types_en,
-      types_ko,
+      types,
       weight: weight / 10,
       height: height / 10,
       stats: formatStats(stats),
@@ -129,39 +116,6 @@ export const getPokemonDetailData = async (id) => {
       description: await getPokemonDescription(id),
     };
   }
-
-  // try {
-  //   const result = await axios.get(url);
-  //   if (result.data) {
-  //     const { name, id, types, weight, height, stats, abilities, sprites } = result.data;
-  // const nextAndPreviousPokemon = await getNextAndPreviousPokemon(id);
-
-  //     const damageRelations = await Promise.all(
-  //       types.map(async (i) => {
-  //         const type = await axios.get(i.type.url);
-  //         return type.data.damage_relations;
-  //       })
-  //     );
-
-  //     return {
-  //       id,
-  //       name,
-  //       image: sprites.other["official-artwork"].front_default,
-  //       types: types.map((type) => type.type.name),
-  //       weight: weight / 10,
-  //       height: height / 10,
-  //       stats: formatStats(stats),
-  //       abilities: formatAbilities(abilities),
-  //       next: nextAndPreviousPokemon.next,
-  //       previous: nextAndPreviousPokemon.previous,
-  //       damageRelations,
-  //       sprites: formatPokemonSprites(sprites),
-  //       description: await getPokemonDescription(id),
-  //     };
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  // }
 };
 
 // 이전, 다음 포켓몬 데이터

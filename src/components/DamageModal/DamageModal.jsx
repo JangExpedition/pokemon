@@ -2,6 +2,7 @@ import styles from "./DamageModal.module.scss";
 import React, { useEffect, useState, useRef } from "react";
 import { useOnClickOutSide } from "../../hooks/index";
 import { Type } from "../index";
+import { getPokemonTypeKo } from "../../api/api";
 
 export const DamageModal = ({ setIsModalOpen, damageRelations }) => {
   const [damagePokemonForm, setDamagePokemonForm] = useState();
@@ -11,14 +12,49 @@ export const DamageModal = ({ setIsModalOpen, damageRelations }) => {
 
   useEffect(() => {
     const damageArr = damageRelations.map((damage) => separateObjectBetweenToAndFrom(damage));
-
     if (damageArr.length > 1) {
       const obj = joinDamageRelations(damageArr);
-      setDamagePokemonForm(reduceDuplicateValues(postDamageValue(obj.from)));
+      const damageRelation = reduceDuplicateValues(postDamageValue(obj.from));
+      const damage = formatName(damageRelation);
+      console.log(damage);
+      setDamagePokemonForm(damage);
     } else {
       setDamagePokemonForm(postDamageValue(damageArr[0].from));
     }
   }, []);
+
+  const formatName = (damageRelation) => {
+    return Object.entries(damageRelation).reduce(async (acc, [keyName, value]) => {
+      const dd = await addKoreanName(value);
+      console.log(dd);
+    }, {});
+  };
+
+  const addKoreanName = (props) => {
+    const result = Promise.all(
+      props.map((prop) => {
+        Object.entries(prop).reduce((acc, [keyName, value]) => {
+          if (keyName === "name") {
+            keyName = "en";
+          } else if (keyName === "url") {
+            keyName = "ko";
+            value = getKoreanName(value);
+          }
+          console.log(acc);
+
+          return (acc = { [keyName]: value, ...acc });
+        }, {});
+      })
+    );
+
+    return result;
+  };
+
+  const getKoreanName = async (url) => {
+    const result = await getPokemonTypeKo(url);
+    console.log(result);
+    return result;
+  };
 
   const reduceDuplicateValues = (props) => {
     const duplicateValues = {
@@ -64,7 +100,6 @@ export const DamageModal = ({ setIsModalOpen, damageRelations }) => {
       const result = firstArrValue[keyName].concat(value);
       return (acc = { [keyName]: result, ...acc });
     }, {});
-
     return result;
   };
 
@@ -108,7 +143,6 @@ export const DamageModal = ({ setIsModalOpen, damageRelations }) => {
 
         return (acc = { [keyWithFilterTypeRemove]: value, ...acc });
       }, {});
-
     return result;
   };
 

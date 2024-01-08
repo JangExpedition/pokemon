@@ -3,9 +3,6 @@ import styles from "./Data.module.scss";
 import React, { useEffect } from "react";
 
 export const Data = ({ title, unit, data }) => {
-  useEffect(() => {
-    console.log(typeof data);
-  });
   return (
     <div className={styles.oneData}>
       <div className={styles.dataTitle}>{title}</div>

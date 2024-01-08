@@ -20,7 +20,6 @@ const Detail = () => {
 
   const getPokemonData = (id) => {
     getPokemonDetailData(id).then((result) => {
-      console.log(result);
       setPokemonData(result);
       setIsLoading(false);
     });
@@ -53,13 +52,13 @@ const Detail = () => {
         alt={pokemonData?.name}
         onClick={() => setIsModalOpen(true)}
       ></img>
-      <did className={styles.infoContainer}>
+      <div className={styles.infoContainer}>
         <DetailSection type={"type"} title={""} pokemonData={pokemonData} />
         <DetailSection type={"data"} title={"정보"} pokemonData={pokemonData} />
         <DetailSection type={"stat"} title={"기본 능력치"} pokemonData={pokemonData} />
         <DetailSection type={"descriptionData"} title={"설명"} pokemonData={pokemonData} />
         <DetailSection type={"sprites"} title={""} pokemonData={pokemonData} />
-      </did>
+      </div>
       {pokemonData?.previous && <PreviousOrNext type={"previous"} data={pokemonData.previous} />}
       {pokemonData?.next && <PreviousOrNext type={"next"} data={pokemonData.next} />}
     </div>

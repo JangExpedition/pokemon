@@ -39,7 +39,6 @@ const Main = () => {
 
   const searchHandler = (value) => {
     if (value.length > 0) {
-      console.log(value);
       setSearchData(pokemons.filter((pokemon) => pokemon.name.includes(value)));
     } else {
       fetchPokemonData();
@@ -57,7 +56,6 @@ const Main = () => {
     } catch (error) {
       setPokemons([]);
       setTotalLength(0);
-      console.log(error);
     }
   };
 
