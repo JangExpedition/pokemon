@@ -1,6 +1,6 @@
 @use "@styles/" as *;
 
-.DamageModal {
+.descriptionModal {
   @include full-frame();
   @include center-row();
 
@@ -27,21 +27,11 @@
         }
       }
     }
-    .relation {
-      width: 100%;
-      @include center-col();
-      h2 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: lightgray;
-      }
-      .typeContainer {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25rem;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem 0;
+    .description {
+      @include center-col;
+      height: 50vh;
+      p {
+        font-size: 1.3rem;
       }
     }
   }

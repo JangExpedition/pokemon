@@ -1,5 +1,5 @@
 export * from "./BaseStat/BaseStat";
-export * from "./DamageModal/DamageModal";
+export * from "./DescriptionModal/DescriptionModal";
 export * from "./Header/Header";
 export * from "./PokemonCard/PokemonCard";
 export * from "./PokemonSearchForm/PokemonSearchForm";

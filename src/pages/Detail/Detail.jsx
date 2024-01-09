@@ -3,7 +3,7 @@ import styles from "./Detail.module.scss";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { DamageModal, PreviousOrNext } from "../../components";
+import { DescriptionModal, PreviousOrNext } from "../../components";
 import { getPokemonDetailData } from "../../api/api";
 import { DetailSection } from "../../components/DetailSection/DetailSection";
 
@@ -36,10 +36,7 @@ const Detail = () => {
   return (
     <div className={styles.detailPage}>
       {isModalOpen && (
-        <DamageModal
-          setIsModalOpen={setIsModalOpen}
-          damageRelations={pokemonData?.damageRelations}
-        />
+        <DescriptionModal pokemonData={pokemonData} setIsModalOpen={setIsModalOpen} />
       )}
       <div className={`type-back-${pokemonData?.types[0].en} ${styles.typeBackground}`}>
         <Link to={"/"} className={styles.back}>

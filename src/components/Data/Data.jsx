@@ -1,6 +1,6 @@
 import styles from "./Data.module.scss";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 export const Data = ({ title, unit, data }) => {
   return (

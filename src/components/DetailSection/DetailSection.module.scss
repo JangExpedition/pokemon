@@ -42,13 +42,6 @@
   @include section();
 }
 
-.descriptionData {
-  @include section();
-  .description {
-    color: #fff;
-  }
-}
-
 .sprites {
   @include section();
   flex-direction: row !important;
