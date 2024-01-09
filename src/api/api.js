@@ -1,36 +1,42 @@
 import axios from "axios";
 
-const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=##{page}&offset=0";
+const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=##{page}&offset=##{offset}";
 const DETAIL_URL = "https://pokeapi.co/api/v2/pokemon/##{id}";
 const KOREAN_DATA_URL = "https://pokeapi.co/api/v2/pokemon-species/##{id}/";
 const TYPE_URL = "https://pokeapi.co/api/v2/type/##{id}";
 const LIMIT = 15; // 한 페이지에 보여줄 갯수
+let POKEMONLIST = [];
 
 // 포켓몬 목록을 가져오는 메서드
-export const getPokemonList = async (page) => {
+export const getPokemonList = async () => {
   let pokemonList = [];
-  const count = LIMIT * page;
-  const url = ALL_POKEMONS_URL.replace("##{page}", count);
+  const url = ALL_POKEMONS_URL.replace("##{page}", LIMIT).replace("##{offset}", POKEMONLIST.length);
   pokemonList = (await axios.get(url)).data.results;
 
-  const result = await pokemonList.map(async (data) => {
-    const url = data.url;
-    const id = await getPokemonId(url);
+  const result = await Promise.all(
+    pokemonList.map(async (data) => {
+      const url = data.url;
+      const id = await getPokemonId(url);
 
-    const name = await getPokemonKoreanName(id);
-    const { image, types } = await getPokemonImageAndTypes(url);
+      const name = await getPokemonKoreanName(id);
+      const { image, types } = await getPokemonImageAndTypes(url);
 
-    const pokemon = {
-      id,
-      name,
-      image,
-      types,
-    };
+      const pokemon = {
+        id,
+        name,
+        image,
+        types,
+      };
 
-    return pokemon;
-  });
+      return pokemon;
+    })
+  );
 
-  return Promise.all(result);
+  POKEMONLIST = [...POKEMONLIST, ...result];
+
+  console.log(POKEMONLIST);
+
+  return POKEMONLIST;
 };
 
 // 포켓몬 id를 가져오는 메서드
@@ -105,10 +111,9 @@ export const getPokemonDetailData = async (id) => {
       name,
       image,
       types,
-      weight: weight / 10,
-      height: height / 10,
+      weight: weight * 0.1,
+      height: height * 0.1,
       stats: formatStats(stats),
-      abilities: formatAbilities(abilities),
       next: nextAndPreviousPokemon.next,
       previous: nextAndPreviousPokemon.previous,
       damageRelations,
@@ -123,13 +128,27 @@ const getNextAndPreviousPokemon = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon/?limit=1&offset=${id - 1}`;
   const result = await axios.get(url);
 
-  const nextResponse = result?.data.next && (await axios.get(result?.data.next));
-  const previousResponse = result?.data.previous && (await axios.get(result?.data.previous));
+  const nextResponse = result.data.next && (await axios.get(result.data.next));
+  const previousResponse = result.data.previous && (await axios.get(result.data.previous));
 
-  return {
-    next: nextResponse?.data?.results[0]?.name,
-    previous: previousResponse?.data?.results[0]?.name,
+  const nextData = nextResponse && nextResponse.data.results[0];
+  const previousData = previousResponse && previousResponse.data.results[0];
+
+  const next = nextData && {
+    en: nextData.name,
+    ko: await getPokemonKoreanName(id + 1),
   };
+
+  const previous = previousData && {
+    en: previousData.name,
+    ko: await getPokemonKoreanName(id - 1),
+  };
+
+  const results = { next, previous };
+
+  console.log(results);
+
+  return results;
 };
 
 // 포켓몬 설명 가져오는 메서드
@@ -163,19 +182,12 @@ const formatPokemonSprites = (sprites) => {
   return Object.values(newSprites);
 };
 
-// 포켓몬 Move 데이터 포맷 메서드
-const formatAbilities = (abilities) => {
-  return abilities
-    .filter((ability, index) => index <= 1)
-    .map((obj) => obj.ability.name.replaceAll("-", " "));
-};
-
 // 포켓몬 능력치 포맷 메서드
 const formatStats = ([statHP, statATK, statDEP, statSTAK, statSDEP, statSPD]) => [
-  { name: "Hit Points", baseStat: statHP.base_stat },
-  { name: "Attack", baseStat: statATK.base_stat },
-  { name: "Defense", baseStat: statDEP.base_stat },
-  { name: "Special Attack", baseStat: statSTAK.base_stat },
-  { name: "Special Defense", baseStat: statSDEP.base_stat },
-  { name: "Speed", baseStat: statSPD.base_stat },
+  { name: "HP", baseStat: statHP.base_stat },
+  { name: "공격", baseStat: statATK.base_stat },
+  { name: "방어", baseStat: statDEP.base_stat },
+  { name: "특수공격", baseStat: statSTAK.base_stat },
+  { name: "특수방어", baseStat: statSDEP.base_stat },
+  { name: "스피드", baseStat: statSPD.base_stat },
 ];

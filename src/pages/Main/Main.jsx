@@ -14,7 +14,7 @@ const Main = () => {
 
   // 페이지가 변화하면 포켓몬 리스트를 더 요청한다.
   useEffect(() => {
-    fetchPokemonData(page);
+    fetchPokemonData();
   }, [page]);
 
   // 데이터 로딩이 끝나면 observer 객체를 생성하고 관찰 대상 전체가 교차 영역으로 진입하면 실행한다.

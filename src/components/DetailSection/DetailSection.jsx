@@ -23,9 +23,8 @@ export const DetailSection = ({ type, title, pokemonData }) => {
         <h4 className={`${styles.sectionTitle} type-${pokemonData.types[0].en}`}>{title}</h4>
         {"data" === type ? (
           <div className={styles.oneRow}>
-            <Data title={"Weight"} unit={"kg"} data={pokemonData?.weight} />
-            <Data title={"Height"} unit={"m"} data={pokemonData?.height} />
-            <Data title={"Move"} unit={""} data={pokemonData?.abilities} />
+            <Data title={"몸무게"} unit={"kg"} data={pokemonData?.weight} />
+            <Data title={"키"} unit={"m"} data={pokemonData?.height} />
           </div>
         ) : "stat" === type ? (
           <table>

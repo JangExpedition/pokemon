@@ -10,7 +10,7 @@ export const Data = ({ title, unit, data }) => {
         data.map((ability) => <div key={ability}>{ability}</div>)
       ) : (
         <div>
-          {data}
+          {data.toFixed(1)}
           {unit}
         </div>
       )}

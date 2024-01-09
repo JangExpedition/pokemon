@@ -42,7 +42,9 @@ const Detail = () => {
         />
       )}
       <div className={`type-back-${pokemonData?.types[0].en} ${styles.typeBackground}`}>
-        <Link to={"/"} className={styles.back}>{`< ${pokemonData?.name?.toUpperCase()}`}</Link>
+        <Link to={"/"} className={styles.back}>
+          {"< 목록"}
+        </Link>
         <span>#{String(pokemonData?.id).padStart(3, "0")}</span>
       </div>
       <img
@@ -54,9 +56,9 @@ const Detail = () => {
       ></img>
       <div className={styles.infoContainer}>
         <DetailSection type={"type"} title={""} pokemonData={pokemonData} />
+        <DetailSection type={"descriptionData"} title={"설명"} pokemonData={pokemonData} />
         <DetailSection type={"data"} title={"정보"} pokemonData={pokemonData} />
         <DetailSection type={"stat"} title={"기본 능력치"} pokemonData={pokemonData} />
-        <DetailSection type={"descriptionData"} title={"설명"} pokemonData={pokemonData} />
         <DetailSection type={"sprites"} title={""} pokemonData={pokemonData} />
       </div>
       {pokemonData?.previous && <PreviousOrNext type={"previous"} data={pokemonData.previous} />}
