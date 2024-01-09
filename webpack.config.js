@@ -3,7 +3,7 @@ const HtmlPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: `${path.resolve(__dirname, "./src")}/index.jsx`,
+  entry: path.resolve(__dirname, "./src/index.jsx"),
   output: {
     publicPath: "/",
     // path: path.resolve(__dirname, "dist"),
