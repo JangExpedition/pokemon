@@ -6,8 +6,6 @@ module.exports = {
   entry: path.resolve(__dirname, "./src/index.jsx"),
   output: {
     publicPath: "/",
-    // path: path.resolve(__dirname, "dist"),
-    // filename: "main.js",
     clean: true,
   },
   resolve: {
@@ -45,7 +43,6 @@ module.exports = {
       },
     ],
   },
-
   plugins: [
     new HtmlPlugin({
       template: "./index.html",
@@ -54,7 +51,6 @@ module.exports = {
       patterns: [{ from: "public" }],
     }),
   ],
-
   devServer: {
     host: "localhost",
     open: true,
