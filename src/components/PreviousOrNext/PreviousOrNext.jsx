@@ -3,7 +3,7 @@ import styles from "./PreviousOrNext.module.scss";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export const PreviousOrNext = ({ type, data }) => {
+export const PreviousOrNext = ({ id, type, data }) => {
   const [logo, setLogo] = useState("");
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export const PreviousOrNext = ({ type, data }) => {
   });
 
   return (
-    <Link className={styles[type]} to={`/pokemon/${data.en}`}>
+    <Link className={styles[type]} to={`/pokemon/${id}`}>
       {logo}
     </Link>
   );

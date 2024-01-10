@@ -42,6 +42,7 @@ const Detail = () => {
         <Link to={"/"} className={styles.back}>
           {"< 목록"}
         </Link>
+        <h1>{pokemonData.name}</h1>
         <span>#{String(pokemonData?.id).padStart(3, "0")}</span>
       </div>
       <img
@@ -58,8 +59,16 @@ const Detail = () => {
         <DetailSection type={"stat"} title={"기본 능력치"} pokemonData={pokemonData} />
         <DetailSection type={"sprites"} title={""} pokemonData={pokemonData} />
       </div>
-      {pokemonData?.previous && <PreviousOrNext type={"previous"} data={pokemonData.previous} />}
-      {pokemonData?.next && <PreviousOrNext type={"next"} data={pokemonData.next} />}
+      {pokemonData?.previous && (
+        <PreviousOrNext
+          type={"previous"}
+          id={Number(pokemonData.id) - 1}
+          data={pokemonData.previous}
+        />
+      )}
+      {pokemonData?.next && (
+        <PreviousOrNext type={"next"} id={Number(pokemonData.id) + 1} data={pokemonData.next} />
+      )}
     </div>
   );
 };

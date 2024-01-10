@@ -3,7 +3,6 @@ import axios from "axios";
 const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=##{page}&offset=##{offset}";
 const DETAIL_URL = "https://pokeapi.co/api/v2/pokemon/##{id}";
 const KOREAN_DATA_URL = "https://pokeapi.co/api/v2/pokemon-species/##{id}/";
-const TYPE_URL = "https://pokeapi.co/api/v2/type/##{id}";
 const LIMIT = 15; // 한 페이지에 보여줄 갯수
 let POKEMONLIST = [];
 
@@ -34,8 +33,6 @@ export const getPokemonList = async () => {
 
   POKEMONLIST = [...POKEMONLIST, ...result];
 
-  console.log(POKEMONLIST);
-
   return POKEMONLIST;
 };
 
@@ -65,6 +62,7 @@ const formatTypes = (types) => {
   return Promise.all(
     types.map(async (type) => {
       return {
+        url: type.type.url,
         en: type.type.name,
         ko: await getPokemonTypeKo(type.type.url),
       };
@@ -92,35 +90,31 @@ const formatKorean = (response) => {
 // 포켓몬 상세정보를 가져오는 메서드
 export const getPokemonDetailData = async (id) => {
   const url = DETAIL_URL.replace("##{id}", id);
-  const result = await axios.get(url);
-  if (result.data) {
-    const { id, weight, height, stats, abilities, sprites } = result.data;
-    const name = await getPokemonKoreanName(id);
-    const { image, types } = await getPokemonImageAndTypes(url);
-    const nextAndPreviousPokemon = await getNextAndPreviousPokemon(id);
-    // const damageRelations = (await axios.get(TYPE_URL.replace("##{id}", id))).data.damage_relations;
+  const response = await axios.get(url);
+  const { weight, height, stats, sprites } = response.data;
+  const name = await getPokemonKoreanName(id);
+  const { image, types } = await getPokemonImageAndTypes(url);
+  const nextAndPreviousPokemon = await getNextAndPreviousPokemon(id);
+  const damageRelations = await Promise.all(
+    types.map(async (type) => {
+      return (await axios.get(type.url)).data.damage_relations;
+    })
+  );
 
-    const damageRelations = await Promise.all(
-      types.map(async () => {
-        return (await axios.get(TYPE_URL.replace("##{id}", id))).data.damage_relations;
-      })
-    );
-
-    return {
-      id,
-      name,
-      image,
-      types,
-      weight: weight * 0.1,
-      height: height * 0.1,
-      stats: formatStats(stats),
-      next: nextAndPreviousPokemon.next,
-      previous: nextAndPreviousPokemon.previous,
-      damageRelations,
-      sprites: formatPokemonSprites(sprites),
-      description: await getPokemonDescription(id),
-    };
-  }
+  return {
+    id,
+    name,
+    image,
+    types,
+    weight: weight * 0.1,
+    height: height * 0.1,
+    stats: formatStats(stats),
+    next: nextAndPreviousPokemon.next,
+    previous: nextAndPreviousPokemon.previous,
+    damageRelations,
+    sprites: formatPokemonSprites(sprites),
+    description: await getPokemonDescription(id),
+  };
 };
 
 // 이전, 다음 포켓몬 데이터
@@ -136,12 +130,12 @@ const getNextAndPreviousPokemon = async (id) => {
 
   const next = nextData && {
     en: nextData.name,
-    ko: await getPokemonKoreanName(id + 1),
+    ko: await getPokemonKoreanName(Number(id) + 1),
   };
 
   const previous = previousData && {
     en: previousData.name,
-    ko: await getPokemonKoreanName(id - 1),
+    ko: await getPokemonKoreanName(Number(id) - 1),
   };
 
   const results = { next, previous };
