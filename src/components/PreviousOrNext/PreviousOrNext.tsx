@@ -2,8 +2,9 @@ import styles from "./PreviousOrNext.module.scss";
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { PreviousOrNextProps } from "./PreviousOrNext.type";
 
-export const PreviousOrNext = ({ id, type, data }) => {
+export const PreviousOrNext = ({ id, type, data }: PreviousOrNextProps) => {
   const [logo, setLogo] = useState("");
 
   useEffect(() => {

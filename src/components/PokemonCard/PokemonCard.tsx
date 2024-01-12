@@ -1,11 +1,10 @@
 import styles from "./PokemonCard.module.scss";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { PokemonCardProps } from "./PokemonCard.type";
 
-import { getPokemonImageAndTypes } from "../../api/api";
-
-export const PokemonCard = ({ pokemon }) => {
+export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   const [loading, setLoading] = useState(true);
 
   return (

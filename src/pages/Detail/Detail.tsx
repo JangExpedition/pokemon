@@ -6,19 +6,20 @@ import { Link, useParams } from "react-router-dom";
 import { DescriptionModal, PreviousOrNext } from "../../components";
 import { getPokemonDetailData } from "../../api/api";
 import { DetailSection } from "../../components/DetailSection/DetailSection";
+import { PokemonDetailData } from "../../type/global.type";
 
 const Detail = () => {
-  const [pokemonData, setPokemonData] = useState({});
+  const [pokemonData, setPokemonData] = useState<PokemonDetailData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const params = useParams();
 
   useEffect(() => {
-    getPokemonData(params.id);
+    getPokemonData(Number(params.id));
   }, [params]);
 
-  const getPokemonData = (id) => {
+  const getPokemonData = (id: number) => {
     getPokemonDetailData(id).then((result) => {
       setPokemonData(result);
       setIsLoading(false);
@@ -36,7 +37,7 @@ const Detail = () => {
   return (
     <div className={styles.detailPage}>
       {isModalOpen && (
-        <DescriptionModal pokemonData={pokemonData} setIsModalOpen={setIsModalOpen} />
+        <DescriptionModal description={pokemonData.description} setIsModalOpen={setIsModalOpen} />
       )}
       <div className={`type-back-${pokemonData?.types[0].en} ${styles.typeBackground}`}>
         <Link to={"/"} className={styles.back}>

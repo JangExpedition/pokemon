@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./DetailSection.module.scss";
 import { BaseStat, Data, Type } from "../index";
+import { DetailSectionProps } from "./DetailSection.type";
 
-export const DetailSection = ({ type, title, pokemonData }) => {
+export const DetailSection = ({ type, title, pokemonData }: DetailSectionProps) => {
   if ("type" === type || "sprites" === type) {
     return "type" === type ? (
       <section className={styles[type]}>
@@ -12,7 +13,7 @@ export const DetailSection = ({ type, title, pokemonData }) => {
       </section>
     ) : (
       <div className={styles[type]}>
-        {pokemonData?.sprites.map((sprite) => (
+        {pokemonData?.sprites?.map((sprite) => (
           <img src={sprite} key={sprite} alt="sprite" />
         ))}
       </div>

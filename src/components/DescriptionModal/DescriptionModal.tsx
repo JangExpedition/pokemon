@@ -1,9 +1,10 @@
 import styles from "./DescriptionModal.module.scss";
 import React, { useRef } from "react";
 import { useOnClickOutSide } from "../../hooks/index";
+import { DescriptionModalProps } from "./DescriptionModal.type";
 
-export const DescriptionModal = ({ pokemonData, setIsModalOpen }) => {
-  const modalRef = useRef();
+export const DescriptionModal = ({ description, setIsModalOpen }: DescriptionModalProps) => {
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutSide(modalRef, () => setIsModalOpen(false));
 
@@ -16,7 +17,7 @@ export const DescriptionModal = ({ pokemonData, setIsModalOpen }) => {
           </span>
         </div>
         <div className={styles.description}>
-          <p>{pokemonData?.description}</p>
+          <p>{description}</p>
         </div>
       </div>
     </div>

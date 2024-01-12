@@ -1,12 +1,15 @@
 import styles from "./BaseStat.module.scss";
 import React, { useEffect, useRef } from "react";
+import { BaseStatProps } from "./BaseStat.type";
 
-export const BaseStat = ({ valueStat, nameStat, type }) => {
-  const statGauge = useRef(null);
+export const BaseStat = ({ valueStat, nameStat, type }: BaseStatProps) => {
+  const statGauge = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const gauge = valueStat * (100 / 255);
-    statGauge.current.style.width = gauge + "%";
+    if (statGauge.current != null) {
+      statGauge.current.style.width = gauge + "%";
+    }
   }, []);
 
   return (
