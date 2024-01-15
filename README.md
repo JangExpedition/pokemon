@@ -28,10 +28,10 @@
 
 ---
 
-- [Webpack의 사용법을 학습하고 사용 스택에 맞게 설정했습니다.](https://www.notion.so/e1556137907f4bd79d7f3f58a9b3a82a?pvs=21)
+- [Webpack의 사용법을 학습하고 사용 스택에 맞게 설정했습니다.](https://fierce-deposit-5cb.notion.site/Webpack-e1556137907f4bd79d7f3f58a9b3a82a?pvs=4)
 - SCSS를 통해 중복된 코드를 줄이고 컴포넌트에 CSS Module을 사용하여 CSS 속성이 겹치는 것을 방지했습니다.
-- [React Router를 통해 공통된 컴포넌트의 중복을 피함으로써 코드의 재사용성을 높였습니다.](https://www.notion.so/Route-c4f19d9f762a40839c11f8c00ffb2eaa?pvs=21)
-- [사용자 경험을 개선하기 위한 기능을 개발하고 불필요한 코드가 발생하지 않도록 코드를 작성했습니다.](https://www.notion.so/5729e8d327e848e685f15f01f1886f77?pvs=21)
+- [React Router를 통해 공통된 컴포넌트의 중복을 피함으로써 코드의 재사용성을 높였습니다.](https://fierce-deposit-5cb.notion.site/Route-c4f19d9f762a40839c11f8c00ffb2eaa?pvs=4)
+- [사용자 경험을 개선하기 위한 기능을 개발하고 불필요한 코드가 발생하지 않도록 코드를 작성했습니다.](https://fierce-deposit-5cb.notion.site/5729e8d327e848e685f15f01f1886f77?pvs=4)
 
 # 📘 회고
 
