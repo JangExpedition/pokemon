@@ -20,8 +20,7 @@
 
 |                    Main                    |                   Detail                   |
 | :----------------------------------------: | :----------------------------------------: |
-|                ![ddd](https://github.com/JangExpedition/pokemon/assets/114918904/4c05fde3-e59d-47f7-9a82-02962cb2df9a)                | ![화면 기록 2024-01-11 오후 8 10 24](https://github.com/JangExpedition/pokemon/assets/114918904/3ba3f8b8-46f4-4b44-aa46-64cb213de19f)
- |
+|                ![ddd](https://github.com/JangExpedition/pokemon/assets/114918904/4c05fde3-e59d-47f7-9a82-02962cb2df9a)                | ![화면 기록 2024-01-11 오후 8 10 24](https://github.com/JangExpedition/pokemon/assets/114918904/3ba3f8b8-46f4-4b44-aa46-64cb213de19f) |
 |                    404                     |                 반응형 UI                  |
 | ![화면 기록 2024-01-11 오후 8 15 05](https://github.com/JangExpedition/pokemon/assets/114918904/a7019717-ddc3-4bc6-9868-894194d660f6) | ![화면 기록 2024-01-15 오후 8 02 01](https://github.com/JangExpedition/pokemon/assets/114918904/7225b2b3-4258-4fa1-bf65-206a116aa484) |
 
