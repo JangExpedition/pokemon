@@ -138,8 +138,6 @@ const getNextAndPreviousPokemon = async (id: number) => {
 
   const results = { next, previous };
 
-  console.log(results);
-
   return results;
 };
 

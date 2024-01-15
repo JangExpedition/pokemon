@@ -5,6 +5,7 @@
     "sourceMap": true,
     "lib": ["ES6", "DOM"],
     "strict": true,
+    "allowJs": true,
     "esModuleInterop": true,
     "jsx": "react",
     "moduleResolution": "node",
