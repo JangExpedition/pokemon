@@ -25,6 +25,10 @@ export interface PokemonDetailData {
   stats: Stat[];
   next: Type;
   previous: Type;
-  sprites: [];
+  sprites: string[];
   description: string;
+}
+
+export interface Sprites {
+  [key: string]: string;
 }

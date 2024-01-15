@@ -44,11 +44,12 @@
 
 .sprites {
   @include section();
-  flex-direction: row !important;
-  .spritesContainer {
-    flex-wrap: wrap;
+  @include mobile {
+    gap: 0.5rem;
     .sprite {
-      width: 25%;
+      width: 20%;
     }
   }
+  flex-direction: row !important;
+  flex-wrap: wrap;
 }

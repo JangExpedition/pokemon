@@ -14,7 +14,7 @@ export const DetailSection = ({ type, title, pokemonData }: DetailSectionProps) 
     ) : (
       <div className={styles[type]}>
         {pokemonData?.sprites?.map((sprite) => (
-          <img src={sprite} key={sprite} alt="sprite" />
+          <img className={styles.sprite} src={sprite} key={sprite} alt="sprite" />
         ))}
       </div>
     );

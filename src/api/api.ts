@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PokemonBasicData, PokemonDetailData, Type } from "../type/global.type";
+import { PokemonBasicData, PokemonDetailData, Sprites, Type } from "../type/global.type";
 
 const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=##{page}&offset=##{offset}";
 const DETAIL_URL = "https://pokeapi.co/api/v2/pokemon/##{id}";
@@ -92,7 +92,7 @@ const formatKorean = (response: any) => {
  */
 
 // 포켓몬 상세정보를 가져오는 메서드
-export const getPokemonDetailData = async (id: number): PokemonDetailData => {
+export const getPokemonDetailData = async (id: number): Promise<PokemonDetailData> => {
   const url = DETAIL_URL.replace("##{id}", String(id));
   const response = await axios.get(url);
   const { weight, height, stats, sprites } = response.data;
@@ -160,16 +160,14 @@ const filterAndFormatDescription = (flavorText: any) => {
 };
 
 // 포켓몬 이미지 포맷하는 메서드
-const formatPokemonSprites = (sprites: any) => {
-  const newSprites = { ...sprites };
+const formatPokemonSprites = (sprites: Sprites): string[] => {
+  const newSprites: Sprites = { ...sprites };
 
-  Object.keys(sprites).forEach((key) => {
-    if (typeof newSprites[key] !== "string") {
-      delete newSprites[key];
-    }
-  });
+  const result = Object.keys(sprites)
+    .filter((key) => typeof newSprites[key] === "string")
+    .map((key) => newSprites[key] as string);
 
-  return Object.values(newSprites);
+  return result;
 };
 
 // 포켓몬 능력치 포맷 메서드

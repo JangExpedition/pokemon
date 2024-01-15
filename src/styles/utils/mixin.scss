@@ -20,3 +20,16 @@
   width: $size;
   height: $size;
 }
+
+$break: 768px;
+
+@mixin mobile {
+  @media (max-width: ($break - 1)) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: $break) {
+    @content;
+  }
+}

@@ -1,4 +1,4 @@
 export interface DescriptionModalProps {
   description: string;
-  setIsModalOpen: (bool: boolean) => boolean;
+  setIsModalOpen: (bool: boolean) => void;
 }

@@ -1,8 +1,13 @@
 @use "@styles/" as *;
 
 .card {
-  width: 25%;
-  height: 30vw;
+  @include mobile {
+    width: 80%;
+  }
+  @include desktop {
+    width: 25%;
+    height: 30vw;
+  }
   margin: 0.5rem;
   border: none;
   border-radius: 0.75rem;
