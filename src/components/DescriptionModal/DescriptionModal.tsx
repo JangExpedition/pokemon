@@ -3,16 +3,16 @@ import React, { useRef } from "react";
 import { useOnClickOutSide } from "../../hooks/index";
 import { DescriptionModalProps } from "./DescriptionModal.type";
 
-export const DescriptionModal = ({ description, setIsModalOpen }: DescriptionModalProps) => {
+export const DescriptionModal = ({ description, modalHandler }: DescriptionModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutSide(modalRef, () => setIsModalOpen(false));
+  useOnClickOutSide(modalRef, () => modalHandler());
 
   return (
     <div className={styles.descriptionModal}>
       <div ref={modalRef} className={styles.modal}>
         <div className={styles.modalHeader}>
-          <span className={styles.closeButton} onClick={() => setIsModalOpen(false)}>
+          <span className={styles.closeButton} onClick={modalHandler}>
             X
           </span>
         </div>

@@ -7,11 +7,15 @@ import { DescriptionModal, PreviousOrNext } from "../../components";
 import { getPokemonDetailData } from "../../api/api";
 import { DetailSection } from "../../components/DetailSection/DetailSection";
 import { PokemonDetailData } from "../../type/global.type";
+import { useDispatch, useSelector } from "react-redux";
+import { openAndCloseModal } from "../../components/slice/modalSlice";
+import { StoreStateType } from "../../components/store/store";
 
 const Detail = () => {
   const [pokemonData, setPokemonData] = useState<PokemonDetailData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state: StoreStateType) => state.modal.isOpen);
 
   const params = useParams();
 
@@ -34,10 +38,14 @@ const Detail = () => {
     );
   }
 
+  const modalHandler = () => {
+    dispatch(openAndCloseModal());
+  };
+
   return (
     <div className={styles.detailPage}>
-      {isModalOpen && pokemonData && (
-        <DescriptionModal description={pokemonData.description} setIsModalOpen={setIsModalOpen} />
+      {isOpen && pokemonData && (
+        <DescriptionModal description={pokemonData.description} modalHandler={modalHandler} />
       )}
       {pokemonData && (
         <>
@@ -53,7 +61,7 @@ const Detail = () => {
             src={pokemonData?.image}
             loading="lazy"
             alt={pokemonData?.name}
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => modalHandler()}
           ></img>
           <div className={styles.infoContainer}>
             <DetailSection type={"type"} title={""} pokemonData={pokemonData} />
