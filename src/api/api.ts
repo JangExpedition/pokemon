@@ -1,11 +1,11 @@
 import axios from "axios";
-import { PokemonBasicData, PokemonDetailData, Sprites, Type } from "../type/global.type";
+import { PokemonData, Sprites, Type } from "../type/global.type";
 
 const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=##{page}&offset=##{offset}";
 const DETAIL_URL = "https://pokeapi.co/api/v2/pokemon/##{id}";
 const KOREAN_DATA_URL = "https://pokeapi.co/api/v2/pokemon-species/##{id}/";
 const LIMIT = 15; // 한 페이지에 보여줄 갯수
-let POKEMONLIST: PokemonBasicData[] = [];
+let POKEMONLIST: PokemonData[] = [];
 
 // 포켓몬 목록을 가져오는 메서드
 export const getPokemonList = async () => {
@@ -92,7 +92,7 @@ const formatKorean = (response: any) => {
  */
 
 // 포켓몬 상세정보를 가져오는 메서드
-export const getPokemonDetailData = async (id: number): Promise<PokemonDetailData> => {
+export const getPokemonDetailData = async (id: number): Promise<PokemonData> => {
   const url = DETAIL_URL.replace("##{id}", String(id));
   const response = await axios.get(url);
   const { weight, height, stats, sprites } = response.data;

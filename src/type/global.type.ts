@@ -8,27 +8,20 @@ export interface Stat {
   baseStat: number;
 }
 
-export interface PokemonBasicData {
-  id: number;
-  name: string;
-  image: string;
-  types: Type[];
-}
-
-export interface PokemonDetailData {
-  id: number;
-  name: string;
-  image: string;
-  types: Type[];
-  weight: number;
-  height: number;
-  stats: Stat[];
-  next: Type;
-  previous: Type;
-  sprites: string[];
-  description: string;
-}
-
 export interface Sprites {
   [key: string]: string;
+}
+
+export interface PokemonData {
+  id: number;
+  name: string;
+  image: string;
+  types: Type[];
+  weight?: number;
+  height?: number;
+  stats?: Stat[];
+  next?: Type;
+  previous?: Type;
+  sprites?: string[];
+  description?: string;
 }
