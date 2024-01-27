@@ -14,7 +14,10 @@
     "noEmit": true, // true로 설정하면 .js 파일이 생성되지 않습니다. 초기에는 타입만 체크해보는 것이 좋습니다.
     "isolatedModules": true,
     "resolveJsonModule": true,
-    "declaration": true
+    "declaration": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist", ".vscode", "public"]

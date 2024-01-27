@@ -25,3 +25,9 @@ export interface PokemonData {
   sprites?: string[];
   description?: string;
 }
+
+export interface PokemonListType {
+  getPokemonListLength: () => number;
+  getPokemonList: () => PokemonData[];
+  setPokemonList: (list: PokemonData[]) => void;
+}

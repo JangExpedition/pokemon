@@ -1,64 +1,91 @@
-import axios from "axios";
-import { PokemonData, Sprites, Type } from "../type/global.type";
+import axios, { AxiosResponse } from "axios";
+import { PokemonData, PokemonListType, Sprites } from "../type/global.type";
 
-const ALL_POKEMONS_URL = "https://pokeapi.co/api/v2/pokemon?limit=##{page}&offset=##{offset}";
-const DETAIL_URL = "https://pokeapi.co/api/v2/pokemon/##{id}";
-const KOREAN_DATA_URL = "https://pokeapi.co/api/v2/pokemon-species/##{id}/";
-const LIMIT = 15; // 한 페이지에 보여줄 갯수
-let POKEMONLIST: PokemonData[] = [];
+const K_NAME_URL = "https://pokeapi.co/api/v2/pokemon-species/##{id}/";
 
-// 포켓몬 목록을 가져오는 메서드
-export const getPokemonList = async () => {
-  let pokemonList = [];
-  const url = ALL_POKEMONS_URL.replace("##{page}", String(LIMIT)).replace(
-    "##{offset}",
-    String(POKEMONLIST.length)
-  );
-  pokemonList = (await axios.get(url)).data.results;
+class PokemonList implements PokemonListType {
+  private static instace: PokemonList;
+  private pokemonList: PokemonData[] = [];
 
-  const result = await Promise.all(
-    pokemonList.map(async (data: any) => {
-      const url = data.url;
-      const id = await getPokemonId(url);
+  private constructor() {}
 
-      const name = await getPokemonKoreanName(id);
-      const { image, types } = await getPokemonImageAndTypes(url);
+  public static getInstance = () => {
+    if (!PokemonList.instace) {
+      PokemonList.instace = new PokemonList();
+    }
+    return PokemonList.instace;
+  };
 
-      const pokemon = {
-        id,
-        name,
-        image,
-        types,
-      };
+  public getPokemonListLength = (): number => {
+    return this.pokemonList.length;
+  };
 
-      return pokemon;
-    })
-  );
+  public getPokemonList = (): PokemonData[] => {
+    return this.pokemonList;
+  };
 
-  POKEMONLIST = [...POKEMONLIST, ...result];
+  public setPokemonList = (list: PokemonData[]) => {
+    this.pokemonList = [...this.pokemonList, ...list];
+  };
 
-  return POKEMONLIST;
+  public getPokemonData = (id: number): PokemonData => {
+    return this.pokemonList.filter((pokemon) => pokemon.id === id)[0];
+  };
+}
+
+const POKEMONLIST = PokemonList.getInstance();
+
+export const getPokemonList = async (): Promise<PokemonData[]> => {
+  try {
+    const URL = "https://pokeapi.co/api/v2/pokemon?limit=15&offset=##{offset}".replace(
+      "##{offset}",
+      String(POKEMONLIST.getPokemonListLength())
+    );
+
+    const response = await axios.get(URL);
+
+    const basicData: PokemonData[] = await Promise.all(
+      response.data.results.map(async (pokemon: { name: string; url: string }) => {
+        const { id, types, weight, height, stats, sprites } = await getPokemonBasicData(
+          pokemon.url
+        );
+        const url = K_NAME_URL.replace("##{id}", String(id));
+        const name = await getKoreanData(url);
+        const image = sprites.other["official-artwork"].front_default;
+        return {
+          id,
+          name,
+          image,
+          types: await formatTypes(types),
+          weight: weight * 0.1,
+          height: height * 0.1,
+          stats: formatStats(stats),
+          sprites: formatPokemonSprites(sprites),
+        };
+      })
+    );
+
+    POKEMONLIST.setPokemonList(basicData);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    return POKEMONLIST.getPokemonList();
+  }
 };
 
-// 포켓몬 id를 가져오는 메서드
-const getPokemonId = async (url: string) => {
-  return (await axios.get(url)).data.id;
+const getPokemonBasicData = async (url: string) => {
+  return (await axios.get(url)).data;
 };
 
-// 포켓몬 한국 이름을 가져오는 메서드
-const getPokemonKoreanName = async (id: number) => {
-  const url = KOREAN_DATA_URL.replace("##{id}", String(id));
-  const response = (await axios.get(url)).data;
+// 포켓몬 한국 이름, 타입을 가져오는 메서드
+const getKoreanData = async (url: string) => {
+  const response = await axios.get(url);
   return formatKorean(response);
 };
 
-// 포켓몬 카드 디스플레이에 필요한 데이터를 가져오는 메서드
-export const getPokemonImageAndTypes = async (url: string) => {
-  const response = await axios.get(url);
-  return {
-    image: response.data.sprites.other["official-artwork"].front_default,
-    types: await formatTypes(response.data.types),
-  };
+// 응답 데이터에서 한글명을 찾는 메서드
+const formatKorean = (response: AxiosResponse) => {
+  return response.data.names.filter((name: any) => name.language.name === "ko")[0].name;
 };
 
 // 포켓몬 타입 형식을 바꿔주는 메서드
@@ -68,49 +95,40 @@ const formatTypes = (types: any) => {
       return {
         url: type.type.url,
         en: type.type.name,
-        ko: await getPokemonTypeKo(type.type.url),
+        ko: await getKoreanData(type.type.url),
       };
     })
   );
 };
 
-// 포켓몬 한글 타입 가져오는 메서드
-export const getPokemonTypeKo = async (url: string) => {
-  const response = (await axios.get(url)).data;
-  return formatKorean(response);
+// 포켓몬 이미지 포맷하는 메서드
+const formatPokemonSprites = (sprites: Sprites): string[] => {
+  const newSprites: Sprites = { ...sprites };
+
+  const result = Object.keys(sprites)
+    .filter((key) => typeof newSprites[key] === "string")
+    .map((key) => newSprites[key] as string);
+
+  return result;
 };
 
-// 응답 데이터에서 한글명을 찾는 메서드
-const formatKorean = (response: any) => {
-  return response.names.filter((name: any) => name.language.name === "ko")[0].name;
-};
+// 포켓몬 능력치 포맷 메서드
+const formatStats = ([statHP, statATK, statDEP, statSTAK, statSDEP, statSPD]: any[]) => [
+  { name: "HP", baseStat: statHP.base_stat },
+  { name: "공격", baseStat: statATK.base_stat },
+  { name: "방어", baseStat: statDEP.base_stat },
+  { name: "특수공격", baseStat: statSTAK.base_stat },
+  { name: "특수방어", baseStat: statSDEP.base_stat },
+  { name: "스피드", baseStat: statSPD.base_stat },
+];
 
-/**
- * ==================================================
- * 포켓몬 상세 정보 메서드 모음
- * ==================================================
- */
-
-// 포켓몬 상세정보를 가져오는 메서드
-export const getPokemonDetailData = async (id: number): Promise<PokemonData> => {
-  const url = DETAIL_URL.replace("##{id}", String(id));
-  const response = await axios.get(url);
-  const { weight, height, stats, sprites } = response.data;
-  const name = await getPokemonKoreanName(id);
-  const { image, types } = await getPokemonImageAndTypes(url);
+export const getPokemonDetailData = async (id: number) => {
+  const pokemon = POKEMONLIST.getPokemonData(id);
   const nextAndPreviousPokemon = await getNextAndPreviousPokemon(id);
-
   return {
-    id,
-    name,
-    image,
-    types,
-    weight: weight * 0.1,
-    height: height * 0.1,
-    stats: formatStats(stats),
+    ...pokemon,
     next: nextAndPreviousPokemon.next,
     previous: nextAndPreviousPokemon.previous,
-    sprites: formatPokemonSprites(sprites),
     description: await getPokemonDescription(id),
   };
 };
@@ -128,12 +146,12 @@ const getNextAndPreviousPokemon = async (id: number) => {
 
   const next = nextData && {
     en: nextData.name,
-    ko: await getPokemonKoreanName(Number(id) + 1),
+    ko: await getKoreanData(K_NAME_URL.replace("##{id}", String(id + 1))),
   };
 
   const previous = previousData && {
     en: previousData.name,
-    ko: await getPokemonKoreanName(Number(id) - 1),
+    ko: await getKoreanData(K_NAME_URL.replace("##{id}", String(id - 1))),
   };
 
   const results = { next, previous };
@@ -158,24 +176,3 @@ const filterAndFormatDescription = (flavorText: any) => {
 
   return koreanDescription;
 };
-
-// 포켓몬 이미지 포맷하는 메서드
-const formatPokemonSprites = (sprites: Sprites): string[] => {
-  const newSprites: Sprites = { ...sprites };
-
-  const result = Object.keys(sprites)
-    .filter((key) => typeof newSprites[key] === "string")
-    .map((key) => newSprites[key] as string);
-
-  return result;
-};
-
-// 포켓몬 능력치 포맷 메서드
-const formatStats = ([statHP, statATK, statDEP, statSTAK, statSDEP, statSPD]: any[]) => [
-  { name: "HP", baseStat: statHP.base_stat },
-  { name: "공격", baseStat: statATK.base_stat },
-  { name: "방어", baseStat: statDEP.base_stat },
-  { name: "특수공격", baseStat: statSTAK.base_stat },
-  { name: "특수방어", baseStat: statSDEP.base_stat },
-  { name: "스피드", baseStat: statSPD.base_stat },
-];

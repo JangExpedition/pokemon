@@ -6,13 +6,13 @@ import { Link, useParams } from "react-router-dom";
 import { DescriptionModal, PreviousOrNext } from "../../components";
 import { getPokemonDetailData } from "../../api/api";
 import { DetailSection } from "../../components/DetailSection/DetailSection";
-import { PokemonDetailData } from "../../type/global.type";
+import { PokemonData } from "../../type/global.type";
 import { useDispatch, useSelector } from "react-redux";
 import { openAndCloseModal } from "../../components/slice/modalSlice";
 import { StoreStateType } from "../../components/store/store";
 
 const Detail = () => {
-  const [pokemonData, setPokemonData] = useState<PokemonDetailData | null>(null);
+  const [pokemonData, setPokemonData] = useState<PokemonData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const isOpen = useSelector((state: StoreStateType) => state.modal.isOpen);
@@ -23,11 +23,12 @@ const Detail = () => {
     getPokemonData(Number(params.id));
   }, [params]);
 
-  const getPokemonData = (id: number) => {
-    getPokemonDetailData(id).then((result) => {
-      setPokemonData(result);
-      setIsLoading(false);
-    });
+  const getPokemonData = async (id: number) => {
+    const result = await getPokemonDetailData(id);
+
+    console.log(result);
+    setPokemonData(result);
+    setIsLoading(false);
   };
 
   if (isLoading) {
