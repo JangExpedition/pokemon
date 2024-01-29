@@ -2,8 +2,13 @@ import React from "react";
 import styles from "./DetailSection.module.scss";
 import { BaseStat, Data, Type } from "../index";
 import { DetailSectionProps } from "./DetailSection.type";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { PokemonData } from "../../type/global.type";
 
-export const DetailSection = ({ type, title, pokemonData }: DetailSectionProps) => {
+export const DetailSection = ({ type, title }: DetailSectionProps) => {
+  const pokemonData = useSelector((state: RootState)=>state.pokemonDetail.detail) as PokemonData;
+
   if ("type" === type || "sprites" === type) {
     return "type" === type ? (
       <section className={styles[type]}>

@@ -1,56 +1,38 @@
+// Main.tsx
 import styles from "./Main.module.scss";
-
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPokemonList } from "../../slice/pokemonSlice";
+import { RootState } from "../../store/store";
 import { PokemonCard } from "../../components";
-
 import { PokemonData } from "../../type/global.type";
-import { getPokemonList } from "../../api/api";
 
 const Main = () => {
-  const [pokemons, setPokemons] = useState<PokemonData[]>([]); // 화면에 표시될 리스트
-  const [page, setPage] = useState(1); // 페이지
-  const pageEnd = useRef<HTMLDivElement | null>(null); // 관찰 대상
-  const [loading, setLoading] = useState(false); // 로딩중인지 아닌지
+  const dispatch = useDispatch();
+  const pokemons: PokemonData[] = useSelector((state: RootState) => state.pokemon.list);
+  const loading = useSelector((state: RootState) => state.pokemon.loading);
+  const error = useSelector((state: RootState) => state.pokemon.error);
+  const pageEnd = useRef<HTMLDivElement | null>(null);
 
-  // 페이지가 변화하면 포켓몬 리스트를 더 요청한다.
   useEffect(() => {
-    fetchPokemonData();
-  }, []);
+    dispatch(fetchPokemonList());
+  }, [dispatch]);
 
-  // 데이터 로딩이 끝나면 observer 객체를 생성하고 관찰 대상 전체가 교차 영역으로 진입하면 실행한다.
   useEffect(() => {
     if (loading) {
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting) {
-            loadMore();
+            dispatch(fetchPokemonList());
           }
         },
-        { threshold: 1 } // 관찰 대상 전체가 진입 했을 때 콜백 실행
+        { threshold: 1 }
       );
       if (pageEnd.current != null) {
-        observer.observe(pageEnd.current); // 관찰 시작
+        observer.observe(pageEnd.current);
       }
     }
-  }, [loading]);
-
-  // 데이터를 가져오고 나면 로딩이 완료됐음을 알려준다.
-  const fetchPokemonData = async () => {
-    try {
-      const pokemonList = (await getPokemonList()) as PokemonData[];
-      setPokemons(pokemonList);
-      setLoading(true);
-    } catch (error) {
-      setPokemons([]);
-      console.error(error);
-    }
-  };
-
-  // 페이지를 수를 올려준다.
-  const loadMore = () => {
-    fetchPokemonData();
-  };
+  }, [dispatch, loading]);
 
   return (
     <>
@@ -61,11 +43,11 @@ const Main = () => {
               <PokemonCard key={pokemon.id} pokemon={pokemon} />
             ))}
             <div className={styles.loading} ref={pageEnd}>
-              <span>...loading</span>
+              <span>{loading ? '...loading' : ''}</span>
             </div>
           </>
         ) : (
-          <h1 className={styles.noPokemon}>포켓몬이 없습니다.</h1>
+          <h1 className={styles.noPokemon}>{error || '포켓몬이 없습니다.'}</h1>
         )}
       </div>
     </>
