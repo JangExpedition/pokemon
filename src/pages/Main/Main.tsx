@@ -12,7 +12,7 @@ const Main = () => {
   const pokemons: PokemonData[] = useSelector((state: RootState) => state.pokemon.list);
   const loading = useSelector((state: RootState) => state.pokemon.loading);
   const error = useSelector((state: RootState) => state.pokemon.error);
-  const pageEnd = useRef<HTMLDivElement | null>(null);
+  const pageEnd = useRef<HTMLDivElement>();
 
   useEffect(() => {
     dispatch(fetchPokemonList());
@@ -23,16 +23,15 @@ const Main = () => {
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting) {
+            console.log("교차!");
             dispatch(fetchPokemonList());
           }
         },
         { threshold: 1 }
       );
-      if (pageEnd.current != null) {
-        observer.observe(pageEnd.current);
-      }
+      observer.observe(pageEnd.current);
     }
-  }, [dispatch, loading]);
+  }, [loading]);
 
   return (
     <>

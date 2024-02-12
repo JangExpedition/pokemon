@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { K_NAME_URL, formatPokemonSprites, formatStats, formatTypes, getKoreanData, getNextAndPreviousPokemon, getPokemonBasicData, getPokemonDescription } from "../api/api";
+import { K_NAME_URL, formatPokemonSprites, formatStats, formatTypes, getKoreanData, getPokemonBasicData } from "../api/api";
 import { PokemonData } from "../type/global.type";
 import axios from "axios";
 
@@ -11,6 +11,8 @@ export const fetchPokemonList = createAsyncThunk<PokemonData[], void, { rejectVa
           "##{offset}",
           String(getState().pokemon.list.length)
         );
+
+        console.log(URL);
   
         const response = await axios.get(URL);
   
@@ -35,7 +37,7 @@ export const fetchPokemonList = createAsyncThunk<PokemonData[], void, { rejectVa
           })
         );
   
-        return basicData;
+        return [...getState().pokemon.list, ...basicData];
       } catch (error) {
         return dispatch(fetchPokemonList.rejected(error.message));
       }
