@@ -1,22 +1,19 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "CommonJS",
-    "sourceMap": true,
-    "lib": ["ES6", "DOM"],
-    "strict": true,
-    "allowJs": true,
-    "esModuleInterop": true,
+    "module": "commonjs",
+    "lib": ["es6", "dom"],
     "jsx": "react",
-    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true, // true로 설정하면 .js 파일이 생성되지 않습니다. 초기에는 타입만 체크해보는 것이 좋습니다.
-    "isolatedModules": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "declaration": true,
-    "noImplicitThis": true
+    "baseUrl": "./", 
+    "paths": {
+      "@styles/*": ["src/styles/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "dist", ".vscode", "public"]
 }

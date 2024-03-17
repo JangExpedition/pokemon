@@ -12,7 +12,7 @@ const Main = () => {
   const pokemons: PokemonData[] = useSelector((state: RootState) => state.pokemon.list);
   const loading = useSelector((state: RootState) => state.pokemon.loading);
   const error = useSelector((state: RootState) => state.pokemon.error);
-  const pageEnd = useRef<HTMLDivElement>();
+  const pageEnd = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     dispatch(fetchPokemonList());
@@ -29,7 +29,7 @@ const Main = () => {
         },
         { threshold: 1 }
       );
-      observer.observe(pageEnd.current);
+      if (pageEnd.current instanceof HTMLDivElement) observer.observe(pageEnd.current);
     }
   }, [loading]);
 
@@ -42,11 +42,11 @@ const Main = () => {
               <PokemonCard key={pokemon.id} pokemon={pokemon} />
             ))}
             <div className={styles.loading} ref={pageEnd}>
-              <span>{loading ? '...loading' : ''}</span>
+              <span>{loading ? "...loading" : ""}</span>
             </div>
           </>
         ) : (
-          <h1 className={styles.noPokemon}>{error || '포켓몬이 없습니다.'}</h1>
+          <h1 className={styles.noPokemon}>{error || "포켓몬이 없습니다."}</h1>
         )}
       </div>
     </>
