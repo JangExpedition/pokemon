@@ -19,8 +19,6 @@ export const fetchPokemonList = createAsyncThunk<PokemonData[], void, { rejectVa
         String(getState().pokemon.list.length)
       );
 
-      console.log(URL);
-
       const response = await axios.get(URL);
 
       const basicData: PokemonData[] = await Promise.all(
