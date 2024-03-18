@@ -24,21 +24,7 @@
 |                                                                      404                                                                      |                                                                   반응형 UI                                                                   |
 | ![화면 기록 2024-01-11 오후 8 15 05](https://github.com/JangExpedition/pokemon/assets/114918904/a7019717-ddc3-4bc6-9868-894194d660f6) | ![화면 기록 2024-01-15 오후 8 02 01](https://github.com/JangExpedition/pokemon/assets/114918904/7225b2b3-4258-4fa1-bf65-206a116aa484) |
 
-# 🏃🏻 프로젝트 구현 과정
+# 🤔 고민한 내용
 
----
-
-- [Webpack의 사용법을 학습하고 사용 스택에 맞게 설정했습니다.](https://fierce-deposit-5cb.notion.site/Webpack-e1556137907f4bd79d7f3f58a9b3a82a?pvs=4)
-- SCSS를 통해 중복된 코드를 줄이고 컴포넌트에 CSS Module을 사용하여 CSS 속성이 겹치는 것을 방지했습니다.
-- [React Router를 통해 공통된 컴포넌트의 중복을 피함으로써 코드의 재사용성을 높였습니다.](https://fierce-deposit-5cb.notion.site/Route-c4f19d9f762a40839c11f8c00ffb2eaa?pvs=4)
-- [사용자 경험을 개선하기 위한 기능을 개발하고 불필요한 코드가 발생하지 않도록 코드를 작성했습니다.](https://fierce-deposit-5cb.notion.site/5729e8d327e848e685f15f01f1886f77?pvs=4)
-
-# 📘 회고
-
----
-
-- Webpack을 사용하며 모듈 번들러의 역할과 이점에 대해 알 수 있었습니다.
-- SCSS를 통해 CSS의 중복 코드를 얼마나 줄일 수 있는지 체감했습니다.
-- SCSS와 CSS Module을 함께 사용함으로써 클래스명 중복을 방지하고 동적으로 할당하여 사용할 수 있었습니다.
-- 컴포넌트 조합으로 페이지를 만들어가며 React의 이점을 알 수 있었습니다.
-- Redux Toolkit으로 간단한 모달창을 구현하면서 사용법을 익힐 수 있었습니다. 앞으로 프로젝트에 살을 붙여가며 상태 관리 라이브러리의 이점에 대해 깊게 이해하는 시간을 가질 예정입니다.
+- [Redux Toolkit과 TypeScript: 타입 단언의 사용과 안전한 타입 처리](https://jangexpedition.oopy.io/62307ea8-bb53-49c0-b9f0-4c5c1df58919)
+- [환경 세팅에 가장 중요한 3가지(Webpack, Babel, tsconfig)](https://jangexpedition.oopy.io/b01392df-1b0c-4cf3-bd70-11a38639c9f4)
